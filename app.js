@@ -1,11 +1,15 @@
-const sequelize = require("./src/config/database"); // Charge la connexion à la base
-const Artisan = require("./src/models/Artisans"); // Charge le modèle Artisan
+const express = require("express");
+const artisanRoutes = require("./src/routes/artisans"); // Importe les routes des artisans
 
-sequelize
-  .sync({ alter: true }) // Synchronise les modèles avec la table
-  .then(() => {
-    console.log("Les modèles sont synchronisés avec la base de données.");
-  })
-  .catch((err) => {
-    console.error("Erreur lors de la synchronisation :", err);
-  });
+const app = express();
+
+// Middleware pour gérer les requêtes avec du JSON
+app.use(express.json());
+
+// Déclare les routes pour les artisans
+app.use("/api/artisans", artisanRoutes);
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Serveur démarré sur le port ${PORT}`);
+});
