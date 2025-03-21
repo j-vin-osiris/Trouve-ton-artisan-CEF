@@ -1,0 +1,31 @@
+{
+  "name": "trouve-ton-artisan-cef",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j-vin-osiris/Trouve-ton-artisan-CEF.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/j-vin-osiris/Trouve-ton-artisan-CEF/issues"
+  },
+  "homepage": "https://github.com/j-vin-osiris/Trouve-ton-artisan-CEF#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mysql2": "^3.14.0",
+    "sequelize": "^6.37.6"
+  },
+  "devDependencies": {
+    "eslint": "^9.22.0",
+    "nodemon": "^3.1.9"
+  }
+}
