@@ -1,0 +1,88 @@
+.navbar {
+  padding-left: 100px !important;
+  padding-right: 100px !important;
+  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.0793474);
+}
+
+.nav-link {
+  position: relative;
+  display: inline-block;
+  color: black; // Couleur normale du lien
+  text-decoration: none;
+
+  &::after {
+    content: ""; // Crée un pseudo-élément pour l'effet
+    position: absolute;
+    bottom: 1px; // Place l'effet sous le texte
+    left: 50%; // Commence au milieu
+    width: 0; // L'animation commence avec une largeur de 0
+    height: 2px; // Épaisseur de la ligne
+    background-color: black; // Couleur de la ligne
+    transition: all 0.4s ease; // Animation fluide
+    transform: translateX(-50%); // Centre l'effet au milieu
+  }
+
+  &:hover::after {
+    width: 100%; // Étend la ligne sur toute la largeur du texte
+  }
+}
+
+.search-bar {
+  border: 1px solid black;
+  width: auto;
+}
+
+.search-container {
+  display: flex; // Organise le champ et l'icône côte à côte
+  align-items: center; // Centre les contenus verticalement
+  padding: 5px 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2),
+    -2px -2px 5px rgba(255, 255, 255, 0.8); // Relief doux
+  transition: box-shadow 0.3s ease; // Animation au survol
+  &:hover {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3),
+      -4px -4px 10px rgba(255, 255, 255, 0.9); // Accentuer l'effet au survol
+  }
+
+  .form-control {
+    flex: 1; // Adapte la largeur de l'input au conteneur
+    border: none;
+  }
+
+  .input-icon {
+    color: #0074c7;
+    font-size: 1.2rem; // Taille de l'icône
+    margin-left: 10px; // Espacement entre le champ et l'icône
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 1024px) {
+  .search-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 5px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  .form-control {
+    font-size: 0.9rem;
+  }
+
+  .input-icon {
+    font-size: 1rem;
+  }
+
+  .nav-link {
+    &::after {
+      width: 0;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+
+    text-align: center;
+    margin: 5px 0;
+  }
+}
