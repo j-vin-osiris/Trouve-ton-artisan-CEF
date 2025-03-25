@@ -1,12 +1,21 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HeaderNav from "./components/Header";
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <h1>Bienvenue sur Trouve Ton Artisan</h1>
-      <p>Le projet front-end est bien lancé !</p>
-    </div>
+    <Router>
+      <div className="App">
+        {/* Header affiché sur toutes les pages */}
+        <HeaderNav />
+
+        {/* Routes principales */}
+        <Routes></Routes>
+
+        {/* Footer affiché sur toutes les pages */}
+      </div>
+    </Router>
   );
-};
+}
 
 export default App;

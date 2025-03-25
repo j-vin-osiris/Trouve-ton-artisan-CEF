@@ -1,0 +1,6 @@
+@import "~bootstrap/scss/bootstrap"; // Styles Bootstrap globaux
+
+// Import des fichiers personnalisés
+@import "./font"; //font
+@import "./global";
+@import "./header";
