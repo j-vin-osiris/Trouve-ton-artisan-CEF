@@ -1,0 +1,69 @@
+footer {
+  background-color: #f1f8fc !important; // Couleur de fond
+  color: #384050; // Couleur principale du texte
+  padding: 20px 0;
+
+  // Adresse
+  footer-address {
+    font-size: 0.9rem;
+    line-height: 1.5;
+
+    p {
+      margin: 0 0 5px 0;
+    }
+
+    a {
+      color: #0074c7; // Couleur pour le lien
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .bi-telephone-fill {
+      font-size: 1.2rem;
+      color: #0074c7; // Couleur de l'icône
+      margin-right: 8px; // Espacement entre l’icône et le texte
+    }
+  }
+
+  // Ligne de séparation
+  hr {
+    border: none;
+    border-top: 1px solid #ccd6dd; // Ligne fine et douce
+    margin: 20px 0; // Espacement vertical autour de la ligne
+  }
+
+  // Menu des pages légales
+  .footer-menu {
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none; // Supprime les puces des listes
+
+      li {
+        display: inline; // Affiche les éléments de la liste sur une seule ligne
+        margin: 0 20px; // Espacement horizontal entre les liens
+
+        a {
+          color: #0074c7; // Couleur des liens
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  // Copyright
+  .footer-copyright {
+    font-size: 0.8rem;
+    color: #384050;
+    margin-top: 20px; // Espacement au-dessus pour détacher du reste
+    text-align: center;
+    padding-top: 10px;
+  }
+}
