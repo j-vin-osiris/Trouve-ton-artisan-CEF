@@ -2,6 +2,9 @@
   padding-left: 100px !important;
   padding-right: 100px !important;
   box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.0793474);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .nav-link {
@@ -25,35 +28,52 @@
   &:hover::after {
     width: 100%; // Étend la ligne sur toute la largeur du texte
   }
+
+  &.active {
+    color: #0074c7 !important;
+    font-weight: bold;
+    text-decoration: underline;
+  }
 }
 
 .search-bar {
-  border: 1px solid black;
   width: auto;
+  position: relative;
 }
 
-.search-container {
-  display: flex; // Organise le champ et l'icône côte à côte
-  align-items: center; // Centre les contenus verticalement
-  padding: 5px 10px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2),
-    -2px -2px 5px rgba(255, 255, 255, 0.8); // Relief doux
-  transition: box-shadow 0.3s ease; // Animation au survol
-  &:hover {
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3),
-      -4px -4px 10px rgba(255, 255, 255, 0.9); // Accentuer l'effet au survol
-  }
+.form-control {
+  flex: 1; // Adapte la largeur de l'input au conteneur
 
-  .form-control {
-    flex: 1; // Adapte la largeur de l'input au conteneur
-    border: none;
+  &::placeholder {
+    color: #aaa; // Placeholder en gris clair
+    font-style: italic; // Optionnel, pour différencier le placeholder
   }
+}
 
-  .input-icon {
-    color: #0074c7;
-    font-size: 1.2rem; // Taille de l'icône
-    margin-left: 10px; // Espacement entre le champ et l'icône
+.search-results {
+  position: absolute;
+  top: 100%; /* Place les résultats juste en dessous de la barre */
+  left: 0;
+  width: 100%; /* Assure que la liste prend toute la largeur disponible */
+  background-color: #fff;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10; /* Met la liste au-dessus des autres éléments */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 50vh; /* Limite la hauteur sur mobile pour éviter le débordement */
+  overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
+
+  .search-result-item {
+    padding: 10px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #f1f8fc;
+    }
   }
 }
 
@@ -84,5 +104,19 @@
 
     text-align: center;
     margin: 5px 0;
+  }
+}
+@media (max-width: 768px) {
+  .search-results {
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border-radius: 0; /* Supprime les coins arrondis pour un affichage uniforme */
+    box-shadow: none; /* Évite les débordements d'ombres sur mobile */
+  }
+
+  .search-container {
+    margin: 0 auto;
+    width: 95%; /* Adapte la barre de recherche à l'écran */
   }
 }
