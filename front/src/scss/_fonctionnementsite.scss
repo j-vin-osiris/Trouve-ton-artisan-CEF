@@ -1,0 +1,64 @@
+.how-to-section {
+  padding: 1rem;
+  background-color: white;
+
+  .section-title {
+    font-size: 2rem;
+    font-family: "Graphik", sans-serif;
+    color: black;
+    margin-bottom: 2rem;
+  }
+
+  .card {
+    background-color: #f1f8fc23;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: translateY(-5px); /* Effet d'élévation au survol */
+    }
+
+    .number-container {
+      width: 30px;
+      height: 30px;
+      margin: 0 auto 1rem; /* Centre le numéro au-dessus de l'icône */
+      border-radius: 50%;
+      background-color: #0074c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .number {
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+      }
+    }
+
+    .icon-container {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .icon-style {
+        font-size: 2rem;
+        color: #82b864;
+      }
+    }
+
+    .step-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #cd2c2e;
+      margin-top: 1rem;
+    }
+
+    .step-description {
+      font-size: 1rem;
+      color: black;
+    }
+  }
+}
