@@ -1,6 +1,7 @@
 import React from "react";
 import HeroSection from "../components/HeroSection"; // Chemin du fichier HeroSection
 import Fonctionnement from "../components/Fonctionnement";
+import FeaturedArtisans from "../components/Featured";
 
 const HomePage = () => {
   return (
@@ -13,6 +14,7 @@ const HomePage = () => {
         </section>
         <section className="featured-artisans">
           {/* Section "Artisans du mois" */}
+          <FeaturedArtisans />
         </section>
       </main>
     </div>
