@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HeaderNav from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
+import ArtisanPage from "./pages/ArtisanPage";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         {/* Routes principales */}
         <Routes>
           <Route path="/" element={<HomePage />} />{" "}
-          {/* Route vers la page d'accueil */}
+          <Route path="/artisans/:id" element={<ArtisanPage />} />
         </Routes>
         <Footer /> {/* Footer affiché en bas de toutes les pages */}
       </div>
