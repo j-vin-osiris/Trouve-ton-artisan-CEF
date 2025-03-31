@@ -4,6 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useLocation } from "react-router-dom";
+import "../scss/_header.scss";
 
 const HeaderNav = () => {
   const location = useLocation(); // Récupère l'URL actuelle

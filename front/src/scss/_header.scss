@@ -7,7 +7,7 @@
 .nav-link {
   position: relative;
   display: inline-block;
-  color: black; // Couleur normale du lien
+  color: black !important; // Couleur normale du lien
   text-decoration: none;
 
   &::after {

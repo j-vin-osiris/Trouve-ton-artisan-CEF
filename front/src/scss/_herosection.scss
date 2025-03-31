@@ -1,0 +1,30 @@
+.hero-section {
+  .hero-image {
+    width: 100%;
+    height: 30vh; /* Hauteur réduite pour un design compact */
+    object-fit: cover; /* Ajuste l'image sans la déformer */
+  }
+
+  .hero-title {
+    font-size: 1.8rem; /* Taille ajustée pour la hauteur réduite */
+    font-family: "Graphik", sans-serif;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-text {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 1.2rem; /* Ajuste le titre pour petits écrans */
+  }
+  .hero-text {
+    font-size: 0.9rem;
+  }
+  .hero-content {
+    padding: 0.5rem;
+  }
+}
