@@ -8,11 +8,11 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import "../scss/_header.scss";
 
 const HeaderNav = () => {
-  const [searchQuery, setSearchQuery] = useState(""); // Saisie de l'utilisateur
-  const [results, setResults] = useState([]); // Résultats de la recherche
-  const [suggestedName, setSuggestedName] = useState(""); // Nom suggéré à afficher
+  const [searchQuery, setSearchQuery] = useState(""); // Gestion de la recherche
+  const [results, setResults] = useState([]); // Stockage des résultats de recherche
   const navigate = useNavigate();
 
+  // Fonction pour effectuer la recherche
   const handleSearch = async (e) => {
     const query = e.target.value;
     setSearchQuery(query);
@@ -22,27 +22,29 @@ const HeaderNav = () => {
         const response = await fetch(
           `http://localhost:3000/api/artisans/search?name=${query}`
         );
-        if (response.ok) {
-          const data = await response.json();
-          setResults(data);
-
-          // Définir le premier artisan comme suggestion
-          setSuggestedName(data.length > 0 ? data[0].name : "");
+        if (!response.ok) {
+          throw new Error("Erreur lors de la recherche.");
         }
+        const data = await response.json();
+        setResults(data); // Met à jour les résultats
       } catch (err) {
-        console.error("Erreur lors de la recherche :", err);
+        console.error(err.message);
       }
     } else {
-      setResults([]);
-      setSuggestedName(""); // Réinitialiser les suggestions
+      setResults([]); // Réinitialise les résultats
     }
   };
 
-  const handleResultClick = (id) => {
-    setSearchQuery(""); // Réinitialiser la recherche
-    setResults([]);
-    setSuggestedName(""); // Effacer le placeholder
-    navigate(`/artisans/${id}`); // Redirection vers la fiche artisan
+  // Fonction pour rediriger vers la page de l'artisan sélectionné
+  const handleResultClick = (artisan) => {
+    setSearchQuery(""); // Réinitialise la recherche
+    setResults([]); // Vide les résultats
+    navigate(`/artisans/${artisan.id}`); // Redirige vers la fiche artisan
+  };
+
+  // Fonction pour rediriger vers une catégorie
+  const handleCategoryClick = (category) => {
+    navigate(`/category/${category}`); // Redirige vers la page catégorie correspondante
   };
 
   return (
@@ -57,10 +59,7 @@ const HeaderNav = () => {
             src="/assets/Logo.png"
             alt="Logo Trouve ton artisan"
             className="d-inline-block align-top img-fluid"
-            style={{
-              maxHeight: "80px",
-              width: "auto",
-            }}
+            style={{ maxHeight: "80px", width: "auto" }}
           />
         </NavbarBrand>
         <Navbar.Toggle aria-controls="offcanvasNavbar" />
@@ -69,22 +68,29 @@ const HeaderNav = () => {
             <Offcanvas.Title>Menu</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
+            {/* Menu des catégories */}
             <Nav className="justify-content-center flex-grow-1 pe-3">
               {[
-                { path: "/category/batiment", label: "Bâtiment" },
-                { path: "/category/services", label: "Services" },
-                { path: "/category/fabrication", label: "Fabrication" },
-                { path: "/category/alimentation", label: "Alimentation" },
-              ].map((item, index) => (
-                <Nav.Link key={index} href={item.path} className="px-3">
-                  {item.label}
+                { name: "Bâtiment" },
+                { name: "Services" },
+                { name: "Fabrication" },
+                { name: "Alimentation" },
+              ].map((category, index) => (
+                <Nav.Link
+                  key={index}
+                  onClick={() => handleCategoryClick(category.name)}
+                  className="px-3"
+                >
+                  {category.name}
                 </Nav.Link>
               ))}
             </Nav>
+
+            {/* Barre de recherche */}
             <Form className="d-flex search-bar">
               <Form.Control
                 type="search"
-                placeholder={suggestedName || "Rechercher un artisan..."}
+                placeholder="Rechercher un artisan..."
                 value={searchQuery}
                 onChange={handleSearch}
                 className="form-control"
@@ -94,7 +100,7 @@ const HeaderNav = () => {
                   {results.map((artisan) => (
                     <li
                       key={artisan.id}
-                      onClick={() => handleResultClick(artisan.id)}
+                      onClick={() => handleResultClick(artisan)}
                       className="search-result-item"
                     >
                       {artisan.name} - {artisan.specialty}

@@ -4,6 +4,7 @@ import HeaderNav from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import ArtisanPage from "./pages/ArtisanPage";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
   return (
@@ -13,8 +14,9 @@ function App() {
         <HeaderNav />
         {/* Routes principales */}
         <Routes>
-          <Route path="/" element={<HomePage />} />{" "}
-          <Route path="/artisans/:id" element={<ArtisanPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/artisans/:name" element={<ArtisanPage />} />
+          <Route path="/category/:category" element={<CategoryPage />} />
         </Routes>
         <Footer /> {/* Footer affiché en bas de toutes les pages */}
       </div>
