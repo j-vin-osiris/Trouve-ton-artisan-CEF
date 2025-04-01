@@ -17,14 +17,29 @@
   }
 }
 
-@media (max-width: 768px) {
+/* Ajustements pour écran moyen (tablette) */
+@media screen and (max-width: 768px) {
   .hero-title {
-    font-size: 1.2rem; /* Ajuste le titre pour petits écrans */
+    font-size: 4vw;
+    max-width: 90%;
+  }
+  .hero-text {
+    font-size: 1rem;
+    max-width: 85%;
+  }
+  .hero-section {
+    padding: 2rem;
+  }
+}
+
+/* Ajustements pour petit écran (mobile) */
+@media screen and (max-width: 480px) {
+  .hero-title {
+    font-size: 5vw;
+    max-width: 100%;
   }
   .hero-text {
     font-size: 0.9rem;
-  }
-  .hero-content {
-    padding: 0.5rem;
+    max-width: 95%;
   }
 }

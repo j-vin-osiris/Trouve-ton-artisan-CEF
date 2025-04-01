@@ -35,6 +35,19 @@ const CategoryPage = () => {
     fetchArtisans();
   }, [category]);
 
+  // 🔹 Optimisation SEO : mise à jour du titre et de la description
+  useEffect(() => {
+    if (category) {
+      document.title = `Artisans spécialisés en ${category} - Trouve Ton Artisan`;
+      document
+        .querySelector('meta[name="description"]')
+        .setAttribute(
+          "content",
+          `Découvrez les meilleurs artisans spécialisés en ${category}. Trouvez des experts près de chez vous et contactez-les directement via notre plateforme !`
+        );
+    }
+  }, [category]);
+
   if (loading) {
     return <p>Chargement...</p>;
   }
@@ -87,7 +100,9 @@ const CategoryPage = () => {
                 </Card.Text>
                 <Button
                   variant="primary"
-                  onClick={() => navigate(`/artisans/${artisan.id}`)}
+                  onClick={() =>
+                    navigate(`/artisans/${encodeURIComponent(artisan.name)}`)
+                  }
                 >
                   Voir le profil
                 </Button>

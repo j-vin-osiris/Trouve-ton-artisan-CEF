@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import "../scss/_footer.scss";
 
 const Footer = () => {
   return (
@@ -9,14 +11,14 @@ const Footer = () => {
           {/* Logo */}
           <div className="col-12 col-md-6 d-flex justify-content-center">
             <div className="footer-logo">
-              <a href="/">
+              <Link to="/">
                 <img
-                  src="/assets/Logo.png" // Chemin vers le logo
+                  src="/assets/Logo.png"
                   alt="Logo Trouve ton artisan"
                   className="img-fluid"
                   style={{ maxHeight: "180px", width: "auto" }}
                 />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -31,8 +33,7 @@ const Footer = () => {
               <p>69269 Lyon Cedex 02</p>
               <p>France</p>
               <p className="d-flex justify-content-center justify-content-md-end align-items-center">
-                <i className="bi bi-telephone-fill me-2"></i>{" "}
-                {/* Icône téléphone */}
+                <i className="bi bi-telephone-fill me-2"></i>
                 <a href="tel:+33426734000">+33 (0)4 26 73 40 00</a>
               </p>
             </div>
@@ -46,16 +47,18 @@ const Footer = () => {
         <div className="footer-menu text-center">
           <ul className="list-inline">
             <li className="list-inline-item">
-              <a href="/mentions-legales">Mentions légales</a>
+              <Link to="/mentions-legales">Mentions légales</Link>
             </li>
             <li className="list-inline-item">
-              <a href="/donnees-personnelles">Données personnelles</a>
+              <Link to="/contact">Contact</Link>
             </li>
             <li className="list-inline-item">
-              <a href="/accessibilite">Accessibilité</a>
+              <Link to="/cgu">Conditions générales d'utilisation</Link>
             </li>
             <li className="list-inline-item">
-              <a href="/cookies">Cookies</a>
+              <Link to="/politique-confidentialite">
+                Politique de confidentialité
+              </Link>
             </li>
           </ul>
         </div>

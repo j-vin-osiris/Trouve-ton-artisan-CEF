@@ -39,7 +39,7 @@ const HeaderNav = () => {
   const handleResultClick = (artisan) => {
     setSearchQuery(""); // Réinitialise la recherche
     setResults([]); // Vide les résultats
-    navigate(`/artisans/${artisan.id}`); // Redirige vers la fiche artisan
+    navigate(`/artisans/${encodeURIComponent(artisan.name)}`); // Redirige vers la fiche artisan
   };
 
   // Fonction pour rediriger vers une catégorie
