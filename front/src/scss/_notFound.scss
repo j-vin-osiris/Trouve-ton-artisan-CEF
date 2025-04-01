@@ -1,0 +1,38 @@
+.not-found-page {
+  text-align: center;
+  padding: 4rem;
+
+  .not-found-content {
+    max-width: 600px;
+    margin: auto;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0074c7;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: #707070;
+    margin-bottom: 1.5rem;
+  }
+
+  .error-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 2rem;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    button {
+      font-size: 1rem;
+      padding: 0.7rem 1.5rem;
+    }
+  }
+}

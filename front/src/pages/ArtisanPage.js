@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // Récupérer le nom depuis l'URL
+import { useParams, useNavigate } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import "../scss/_artisanPage.scss";
 
 const ArtisanPage = () => {
-  const { name } = useParams(); // Récupère le nom de l'artisan via l'URL
-  const [artisan, setArtisan] = useState(null); // Stockage des données d'un artisan
-  const [loading, setLoading] = useState(true); // Indicateur de chargement
-  const [error, setError] = useState(null); // Gestion des erreurs
+  const { name } = useParams();
+  const [artisan, setArtisan] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isMessageSent, setIsMessageSent] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchArtisan = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/artisans/search?name=${encodeURIComponent(
+          `http://localhost:3000/api/artisans/artisan/${encodeURIComponent(
             name
           )}`
         );
@@ -21,108 +26,164 @@ const ArtisanPage = () => {
           throw new Error("Erreur lors de la récupération de l'artisan.");
         }
         const data = await response.json();
-
-        if (data.length > 0) {
-          setArtisan(data[0]); // Prend le premier artisan correspondant
-        } else {
-          setError("Aucun artisan trouvé.");
-        }
+        setArtisan(data);
       } catch (err) {
         setError(err.message);
       } finally {
-        setLoading(false); // Arrêter le chargement
+        setLoading(false);
       }
     };
 
     fetchArtisan();
   }, [name]);
 
-  if (loading) {
-    return <p>Chargement...</p>; // Affichage pendant le chargement
-  }
+  // Optimisation SEO : mise à jour du titre et de la description
+  useEffect(() => {
+    if (artisan) {
+      document.title = `${artisan.name} - Artisan en ${artisan.specialty} à ${artisan.location}`;
+      document
+        .querySelector('meta[name="description"]')
+        .setAttribute(
+          "content",
+          `Découvrez ${artisan.name}, expert en ${artisan.specialty} situé à ${artisan.location}. Consultez ses avis et contactez-le directement via notre plateforme !`
+        );
+    }
+  }, [artisan]);
 
-  if (error) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setIsMessageSent(true);
+  };
+
+  if (loading) return <p>Chargement...</p>;
+  if (error)
     return (
-      <div className="error">
+      <Container className="error">
         <p>{error}</p>
-        <button onClick={() => navigate("/")}>Retour à l'accueil</button>
-      </div>
+        <Button variant="primary" onClick={() => navigate("/")}>
+          Retour à l'accueil
+        </Button>
+      </Container>
     );
-  }
-
-  if (!artisan) {
-    return <p>Aucun artisan correspondant à ce nom.</p>;
-  }
+  if (!artisan) return <p>Aucun artisan trouvé.</p>;
 
   return (
-    <div className="artisan-page">
-      <div className="artisan-profile">
-        <div className="profile-logo-container">
+    <Container className="artisan-page">
+      <div className="artisan-layout">
+        {/* Section Logo */}
+        <div className="artisan-logo">
           <img
-            src={artisan.logo || "/assets/default-logo.png"}
+            src={artisan.logo || "/assets/favicon-32.png"}
             alt={`Logo de ${artisan.name}`}
             className="profile-logo"
           />
         </div>
-        <h1 className="artisan-name">{artisan.name}</h1>
-        <div className="rating">
-          {Array.from({ length: 5 }, (_, i) => (
-            <i
-              key={i}
-              className={`bi bi-star${
-                i < Math.round(artisan.rating) ? "-fill" : ""
-              }`}
-              style={{ color: "#f1c40f" }}
-            ></i>
-          ))}
-          <span className="review-count">({artisan.reviews} avis)</span>
-        </div>
+
+        {/* Section Infos Artisan + À propos */}
         <div className="artisan-info">
-          <p>
-            <strong>Spécialité :</strong> {artisan.specialty}
-          </p>
-          <p>
-            <strong>Téléphone :</strong> {artisan.phone}
-          </p>
-          <p>
-            <strong>Email :</strong> {artisan.email}
-          </p>
-          <p>
-            <strong>Localisation :</strong> {artisan.location}
-          </p>
+          <Card className="artisan-profile">
+            <Card.Body>
+              <Card.Title className="artisan-name">{artisan.name}</Card.Title>
+              <div className="rating">
+                {Array.from({ length: 5 }, (_, i) => (
+                  <i
+                    key={i}
+                    className={`bi bi-star${
+                      i < Math.round(artisan.rating) ? "-fill" : ""
+                    }`}
+                    style={{ color: "#f1c40f" }}
+                  ></i>
+                ))}
+                <span className="review-count">({artisan.reviews} avis)</span>
+              </div>
+              <Card.Text className="artisan-details">
+                <i className="bi bi-tools" style={{ color: "#0074c7" }}></i>{" "}
+                <strong>Spécialité :</strong> {artisan.specialty} <br />
+                <i
+                  className="bi bi-telephone-fill"
+                  style={{ color: "#0074c7" }}
+                ></i>{" "}
+                <strong>Téléphone :</strong> {artisan.phone} <br />
+                <i
+                  className="bi bi-envelope-fill"
+                  style={{ color: "#0074c7" }}
+                ></i>{" "}
+                <strong>Email :</strong> {artisan.email} <br />
+                <i
+                  className="bi bi-geo-alt-fill"
+                  style={{ color: "#0074c7" }}
+                ></i>{" "}
+                <strong>Localisation :</strong> {artisan.location} <br />
+                {/* Ajout du site internet avec une icône */}
+                {artisan.website && (
+                  <p>
+                    <i className="bi bi-globe" style={{ color: "#0074c7" }}></i>
+                    <strong>Site internet :</strong>{" "}
+                    <a
+                      href={artisan.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {artisan.website}
+                    </a>
+                  </p>
+                )}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+
+          <Card className="artisan-about">
+            <Card.Body>
+              <Card.Title>À propos</Card.Title>
+              <Card.Text>{artisan.about}</Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
+
+        {/* Section Formulaire à droite */}
+        <div className="artisan-contact">
+          <Card className="contact-form">
+            <Card.Body>
+              <Card.Title>Contacter {artisan.name}</Card.Title>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Nom</Form.Label>
+                  <Form.Control type="text" placeholder="Votre nom" required />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Votre adresse mail"
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Message</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={5}
+                    placeholder="Votre message..."
+                    required
+                  />
+                </Form.Group>
+                <Button type="submit" variant="primary">
+                  Envoyer
+                </Button>
+
+                {/* Message de confirmation */}
+                {isMessageSent && (
+                  <p className="confirmation-message">
+                    ✅ Votre message a bien été envoyé ! {artisan.name} vous
+                    répondra sous 24h.
+                  </p>
+                )}
+              </Form>
+            </Card.Body>
+          </Card>
         </div>
       </div>
-
-      <div className="artisan-about">
-        <h2>À propos</h2>
-        <p>{artisan.about}</p>
-      </div>
-
-      <div className="contact-form">
-        <h2>Contactez {artisan.name}</h2>
-        <form>
-          <div className="form-group">
-            <label htmlFor="name">Nom</label>
-            <input type="text" id="name" name="name" required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="subject">Objet</label>
-            <input type="text" id="subject" name="subject" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="message">Message</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Envoyer
-          </button>
-        </form>
-      </div>
-    </div>
+    </Container>
   );
 };
 

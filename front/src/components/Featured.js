@@ -28,8 +28,8 @@ const FeaturedArtisans = () => {
     fetchArtisans();
   }, []);
 
-  const handleCardClick = (id) => {
-    navigate(`/artisans/${id}`); // Redirige vers la page ArtisanPage avec l'ID
+  const handleCardClick = (name) => {
+    navigate(`/artisans/${encodeURIComponent(name)}`); // Redirige vers ArtisanPage avec le nom
   };
 
   return (
@@ -49,7 +49,7 @@ const FeaturedArtisans = () => {
             <Col key={artisan.id} sm={12} md={6} lg={4}>
               <Card
                 className="h-100 shadow-sm"
-                onClick={() => handleCardClick(artisan.id)} // Ajout du clic pour rediriger
+                onClick={() => handleCardClick(artisan.name)} // Ajout du clic pour rediriger
                 style={{ cursor: "pointer" }} // Change le curseur pour indiquer la cliquabilité
               >
                 <Card.Body className="text-center">
@@ -79,6 +79,10 @@ const FeaturedArtisans = () => {
                         style={{ color: "#f1c40f" }}
                       ></i>
                     ))}
+                    <span className="review-count">
+                      ({artisan.reviews} avis)
+                    </span>{" "}
+                    {/* Ajout du nombre d'avis */}
                   </div>
                 </Card.Body>
               </Card>
