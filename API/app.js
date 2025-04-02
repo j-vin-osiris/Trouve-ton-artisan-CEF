@@ -1,3 +1,4 @@
+const cors = require("cors");
 const helmet = require("helmet"); // Import de Helmet
 require("dotenv").config(); // Charge les variables d'environnement
 const express = require("express");
@@ -5,6 +6,7 @@ const artisanRoutes = require("./src/routes/artisans");
 const rateLimiter = require("./src/middlewares/rateLimiter");
 
 const app = express();
+app.use(cors()); // Active le CORS pour toutes les routes
 
 // Middleware Helmet pour ajouter des en-têtes sécurisés
 app.use(helmet());
