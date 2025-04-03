@@ -1,27 +1,34 @@
 const cors = require("cors");
-const helmet = require("helmet"); // Import de Helmet
-require("dotenv").config(); // Charge les variables d'environnement
+const helmet = require("helmet");
+require("dotenv").config();
 const express = require("express");
 const artisanRoutes = require("./src/routes/artisans");
 const rateLimiter = require("./src/middlewares/rateLimiter");
+const sequelize = require("./src/config/database"); // ✅ Import de la connexion à la base de données
 
 const app = express();
 app.use(cors()); // Active le CORS pour toutes les routes
+app.use(helmet()); // Sécurise les en-têtes HTTP
+app.use(rateLimiter); // Limite les requêtes abusives
+app.use(express.json()); // Middleware pour traiter les JSON
 
-// Middleware Helmet pour ajouter des en-têtes sécurisés
-app.use(helmet());
+// 📌 Vérifier la connexion à la base de données avant de démarrer
+sequelize
+  .authenticate()
+  .then(() => console.log("✅ Connexion à la base de données réussie ! 🚀"))
+  .catch((err) => console.error("❌ Erreur de connexion à la base :", err));
 
-// Middleware pour limiter les requêtes abusives
-app.use(rateLimiter);
-
-// Middleware pour traiter les JSON
-app.use(express.json());
-
-// Routes pour les artisans
+// Routes API
 app.use("/api/artisans", artisanRoutes);
 
-// Configuration du port
+// 📍 Gestion des erreurs globales
+app.use((err, req, res, next) => {
+  console.error("Erreur serveur :", err);
+  res.status(500).json({ message: "Erreur interne du serveur" });
+});
+
+// Configuration du port et démarrage du serveur
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Serveur démarré sur le port ${PORT}`);
+  console.log(`✅ Serveur démarré sur le port ${PORT} 🚀`);
 });
