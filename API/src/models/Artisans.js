@@ -1,53 +1,53 @@
-const { DataTypes } = require("sequelize"); // Importe les types de données
-const sequelize = require("../config/database"); // Charge la configuration de la base
+const { DataTypes } = require("sequelize");
+const db = require("../config/database");
+const Specialite = require("./Specialite"); // 🔗 Relation avec Specialite.js
 
-// Définition du modèle Artisan
-const Artisan = sequelize.define(
-  "Artisan",
+const Artisan = db.define(
+  "artisan",
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     name: {
       type: DataTypes.STRING,
-      allowNull: false, // Nom obligatoire
+      allowNull: false,
     },
-    specialty: {
-      type: DataTypes.STRING,
-      allowNull: false, // Spécialité obligatoire
-    },
-    rating: {
-      type: DataTypes.FLOAT,
-      allowNull: false, // Note obligatoire
+    specialty_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Specialite,
+        key: "id",
+      },
     },
     location: {
       type: DataTypes.STRING,
-      allowNull: false, // Ville obligatoire
+      allowNull: false,
     },
     about: {
-      type: DataTypes.TEXT, // Description optionnelle
+      type: DataTypes.TEXT,
     },
     email: {
       type: DataTypes.STRING,
-      validate: {
-        isEmail: true, // Validation des adresses e-mail
-      },
     },
     website: {
       type: DataTypes.STRING,
-      validate: {
-        isUrl: true, // Validation des URL
-      },
     },
-    category: {
-      type: DataTypes.STRING,
-      allowNull: false, // Catégorie obligatoire
+    rating: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
     },
     top: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false, // Par défaut, l'artisan n'est pas vedette
+      defaultValue: false,
     },
   },
   {
-    timestamps: false, // Désactive `createdAt` et `updatedAt`
+    timestamps: false,
+    tableName: "artisans",
   }
 );
 
-module.exports = Artisan; // Exporte le modèle pour l'utiliser ailleurs
+module.exports = Artisan;
