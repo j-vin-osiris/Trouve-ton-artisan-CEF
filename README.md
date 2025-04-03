@@ -20,11 +20,6 @@ Avant d’installer ce projet, assurez-vous d’avoir les éléments suivants :
 
 ---
 
-## 🏗 **Structure du projet**
-
-TROUVE-TON-ARTISAN-CEF/ │── 📂 api/ (Backend Node.js/Express) │ ├── 📂 database/ (Scripts SQL) │ ├── 📂 routes/ (Endpoints de l’API) │ ├── 📂 models/ (Modèles Sequelize) │ ├── 📜 server.js (Point d’entrée de l’API) │ │── 📂 front/ (Frontend React) │ ├── 📂 public/ (Images, index.html, manifest.json) │ ├── 📂 src/ (Code source React) │ │ ├── 📂 components/ (Composants réutilisables) │ │ ├── 📂 pages/ (Pages principales) │ │ ├── 📂 scss/ (Fichiers SCSS pour le style) │ │ ├── 📜 App.js (Composant principal) │ │ ├── 📜 index.js (Point d’entrée React) │ │── 📜 README.md (Documentation du projet) │── 📜 package.json (Dépendances du projet) │── 📜 .gitignore (Fichiers à exclure du Git)
-
----
 
 ## ⚙ **Installation**
 
