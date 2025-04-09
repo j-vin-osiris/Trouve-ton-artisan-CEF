@@ -1,18 +1,65 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import NavbarBrand from "react-bootstrap/esm/NavbarBrand";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+
 import "../scss/_header.scss";
 
 const HeaderNav = () => {
-  const [searchQuery, setSearchQuery] = useState(""); // Gestion de la recherche
-  const [results, setResults] = useState([]); // Stockage des résultats de recherche
+  const [searchQuery, setSearchQuery] = useState(""); // 📌 Gestion de la recherche
+  const [results, setResults] = useState([]); // 🔍 Stockage des résultats
+  const [openCategory, setOpenCategory] = useState(null); // 📌 Gestion du menu spécialités
+  const menuRef = useRef(null);
+  const searchRef = useRef(null);
   const navigate = useNavigate();
 
-  // Fonction pour effectuer la recherche
+  // 🔥 Liste statique des catégories et spécialités
+  const categories = [
+    {
+      name: "Bâtiment",
+      specialties: ["Électricien", "Menuisier", "Plombier", "Chauffagiste"],
+    },
+    {
+      name: "Services",
+      specialties: ["Coiffeur", "Fleuriste", "Toiletteur", "Webdesign"],
+    },
+    {
+      name: "Fabrication",
+      specialties: ["Bijoutier", "Couturier", "Ferronnier"],
+    },
+    {
+      name: "Alimentation",
+      specialties: ["Boucher", "Boulanger", "Chocolatier", "Traiteur"],
+    },
+  ];
+
+  // 📌 Gère l'affichage du sous-menu des spécialités
+  const handleCategoryClick = (categoryName) => {
+    setOpenCategory(openCategory === categoryName ? null : categoryName);
+  };
+
+  // 🔥 Fermer le menu en cas de clic extérieur
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpenCategory(null);
+      }
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setResults([]); // 🔥 Ferme les résultats de recherche
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+  // 📌 Gestion de la recherche d’artisans
   const handleSearch = async (e) => {
     const query = e.target.value;
     setSearchQuery(query);
@@ -26,34 +73,25 @@ const HeaderNav = () => {
           throw new Error("Erreur lors de la recherche.");
         }
         const data = await response.json();
-        setResults(data); // Met à jour les résultats
+        setResults(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error(err.message);
       }
     } else {
-      setResults([]); // Réinitialise les résultats
+      setResults([]);
     }
   };
 
-  // Fonction pour rediriger vers la page de l'artisan sélectionné
+  // 📌 Rediriger vers la page d’un artisan
   const handleResultClick = (artisan) => {
-    setSearchQuery(""); // Réinitialise la recherche
-    setResults([]); // Vide les résultats
-    navigate(`/artisans/${encodeURIComponent(artisan.name)}`); // Redirige vers la fiche artisan
-  };
-
-  // Fonction pour rediriger vers une catégorie
-  const handleCategoryClick = (category) => {
-    navigate(`/category/${category}`); // Redirige vers la page catégorie correspondante
+    setSearchQuery("");
+    setResults([]);
+    navigate(`/artisans/${encodeURIComponent(artisan.name)}`);
   };
 
   return (
     <header>
-      <Navbar
-        expand="lg"
-        className="bg-body justify-content-around"
-        role="navigation"
-      >
+      <Navbar expand="lg" className="bg-body justify-content-around">
         <NavbarBrand href="/" className="d-flex align-items-center">
           <img
             src="/assets/Logo.png"
@@ -63,31 +101,74 @@ const HeaderNav = () => {
           />
         </NavbarBrand>
         <Navbar.Toggle aria-controls="offcanvasNavbar" />
-        <Navbar.Offcanvas id="offcanvasNavbar" placement="end">
+        <Navbar.Offcanvas
+          id="offcanvasNavbar"
+          placement="end"
+          onHide={() => setOpenCategory(null)}
+        >
           <Offcanvas.Header closeButton>
             <Offcanvas.Title>Menu</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            {/* Menu des catégories */}
-            <Nav className="justify-content-center flex-grow-1 pe-3">
-              {[
-                { name: "Bâtiment" },
-                { name: "Services" },
-                { name: "Fabrication" },
-                { name: "Alimentation" },
-              ].map((category, index) => (
-                <Nav.Link
-                  key={index}
-                  onClick={() => handleCategoryClick(category.name)}
-                  className="px-3"
+            {/* 📍 Menu des catégories avec spécialités */}
+            <Nav
+              className="justify-content-center flex-grow-1 pe-3"
+              ref={menuRef}
+            >
+              {categories.map((category) => (
+                <div
+                  key={category.name}
+                  className={`category-item ${
+                    openCategory === category.name ? "open" : ""
+                  }`}
                 >
-                  {category.name}
-                </Nav.Link>
+                  <Nav.Link
+                    onClick={(e) => {
+                      e.stopPropagation(); // 🔥 Empêche la propagation
+                      handleCategoryClick(category.name);
+                    }}
+                    className="category-link"
+                  >
+                    {category.name}{" "}
+                    <span className="dropdown-icon">
+                      {openCategory === category.name ? (
+                        <FaChevronUp />
+                      ) : (
+                        <FaChevronDown />
+                      )}
+                    </span>
+                  </Nav.Link>
+
+                  {/* 📌 Affichage des spécialités sous chaque catégorie */}
+                  {openCategory === category.name && (
+                    <ul className="specialty-dropdown">
+                      {category.specialties.map((specialty) => (
+                        <li key={specialty} className="specialty-item">
+                          <Nav.Link
+                            onClick={() => {
+                              console.log(
+                                `🛠️ Navigation vers : /specialite/${encodeURIComponent(
+                                  specialty
+                                )}`
+                              );
+                              navigate(
+                                `/specialite/${encodeURIComponent(specialty)}`
+                              );
+                              setOpenCategory(null); // 🔥 Ferme le menu après sélection
+                            }}
+                          >
+                            {specialty}
+                          </Nav.Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               ))}
             </Nav>
 
-            {/* Barre de recherche */}
-            <Form className="d-flex search-bar">
+            {/* 📍 Barre de recherche */}
+            <Form className="d-flex search-bar" ref={searchRef}>
               <Form.Control
                 type="search"
                 placeholder="Rechercher un artisan..."
@@ -103,7 +184,8 @@ const HeaderNav = () => {
                       onClick={() => handleResultClick(artisan)}
                       className="search-result-item"
                     >
-                      {artisan.name} - {artisan.specialty}
+                      {artisan.name}{" "}
+                      {artisan.specialite ? `- ${artisan.specialite}` : ""}
                     </li>
                   ))}
                 </ul>

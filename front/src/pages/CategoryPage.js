@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import "../scss/_categoryPage.scss";
 
 const CategoryPage = () => {
-  const { category } = useParams();
+  const { specialiteId } = useParams(); // ✅ Correct !
   const [artisans, setArtisans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,35 +18,39 @@ const CategoryPage = () => {
     const fetchArtisans = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/artisans/category/${category}`
+          `http://localhost:3000/api/artisans/specialite/${specialiteId}`
         );
+
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération des artisans.");
         }
+
         const data = await response.json();
-        setArtisans(data);
+        console.log("🔍 Données reçues :", JSON.stringify(data, null, 2));
+        setArtisans(Array.isArray(data) ? data : []);
       } catch (err) {
+        console.error("❌ Erreur API :", err);
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchArtisans();
-  }, [category]);
+    if (specialiteId) fetchArtisans();
+  }, [specialiteId]); // 🔥 Recharge les données à chaque changement de spécialité
 
-  // 🔹 Optimisation SEO : mise à jour du titre et de la description
+  // 🔹 SEO : Mise à jour du titre et de la description
   useEffect(() => {
-    if (category) {
-      document.title = `Artisans spécialisés en ${category} - Trouve Ton Artisan`;
+    if (specialiteId) {
+      document.title = `Artisans spécialisés en ${specialiteId} - Trouve Ton Artisan`;
       document
         .querySelector('meta[name="description"]')
         .setAttribute(
           "content",
-          `Découvrez les meilleurs artisans spécialisés en ${category}. Trouvez des experts près de chez vous et contactez-les directement via notre plateforme !`
+          `Trouvez les meilleurs artisans spécialisés en ${specialiteId}, près de chez vous.`
         );
     }
-  }, [category]);
+  }, [specialiteId]);
 
   if (loading) {
     return <p>Chargement...</p>;
@@ -64,24 +68,24 @@ const CategoryPage = () => {
   }
 
   if (artisans.length === 0) {
-    return <p>Aucun artisan trouvé pour cette catégorie.</p>;
+    return (
+      <p className="text-center">Aucun artisan trouvé pour cette spécialité.</p>
+    );
   }
 
   return (
     <Container className="category-page">
-      <h1 className="category-title">
-        Artisans dans la catégorie : {category}
-      </h1>
+      <h1 className="category-title">Artisans: {specialiteId}</h1>
       <Row>
         {artisans.map((artisan) => (
           <Col key={artisan.id} xs={12} sm={6} md={4} lg={3}>
             <Card className="artisan-card">
               <Card.Img
                 variant="top"
-                src={artisan.logo || "/assets/favicon-32.png"}
+                src={artisan.logo || "/assets/logo artisans defaut.png"} // ✅ Image par défaut si artisan n'a pas de logo
               />
               <Card.Body>
-                <Card.Title>{artisan.name}</Card.Title>
+                <Card.Title>{artisan.name || "Nom inconnu"}</Card.Title>
                 <div className="rating">
                   {Array.from({ length: 5 }, (_, i) => (
                     <i
@@ -92,11 +96,13 @@ const CategoryPage = () => {
                       style={{ color: "#f1c40f" }}
                     ></i>
                   ))}
-                  <span className="review-count">({artisan.reviews} avis)</span>
+                  <span className="review-count">
+                    ({artisan.reviews ?? "0"} avis)
+                  </span>
                 </div>
                 <Card.Text>
-                  <strong>Spécialité :</strong> {artisan.specialty} <br />
-                  <strong>Localisation :</strong> {artisan.location}
+                  <strong>Localisation :</strong>{" "}
+                  {artisan.location || "Non renseigné"}
                 </Card.Text>
                 <Button
                   variant="primary"
