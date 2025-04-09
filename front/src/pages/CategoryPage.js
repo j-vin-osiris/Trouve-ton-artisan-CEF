@@ -76,7 +76,7 @@ const CategoryPage = () => {
   return (
     <Container className="category-page">
       <h1 className="category-title">Artisans: {specialiteId}</h1>
-      <Row>
+      <Row className="artisan-list">
         {artisans.map((artisan) => (
           <Col key={artisan.id} xs={12} sm={6} md={4} lg={3}>
             <Card className="artisan-card">

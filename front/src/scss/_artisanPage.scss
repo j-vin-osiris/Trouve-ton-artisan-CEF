@@ -6,9 +6,9 @@
   padding: 2rem;
 
   .artisan-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
-    color: #0074c7;
+    color: #00497c;
     text-align: center;
     margin-bottom: 30px; // Espace sous le titre
 
@@ -42,6 +42,15 @@
     }
   }
 
+  .card-body {
+    line-height: 2; // 🔹 Augmente l'espacement entre les lignes pour un meilleur confort de lecture
+    padding: 1.5rem; // 🔥 Renforce l'aération interne
+  }
+
+  .card-title {
+    font-weight: bold;
+  }
+
   .artisan-info {
     grid-column: 2;
     grid-row: 1;
@@ -52,7 +61,7 @@
       border: none;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       padding: 1.5rem;
-      background: #fff;
+      background: #f1f8fc;
       border-radius: 8px;
     }
   }
@@ -64,7 +73,7 @@
     border: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
-    background: #fff;
+    background: #f1f8fc;
     border-radius: 8px;
   }
 
@@ -75,6 +84,7 @@
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f1f8fc;
 
     h3 {
       font-size: 1.4rem;
@@ -82,11 +92,32 @@
       margin-bottom: 1rem;
       color: #0074c7;
     }
+    .form-body .form-group {
+      margin-bottom: 1rem;
+    }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+    .form-body input[type="text"] {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-body {
+      padding: 1.5rem;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: left; // 🔹 Assure un alignement correct du texte
+      line-height: 1.6; // 🔥 Espacement optimal entre les lignes
+    }
+
+    .form-title {
+      text-align: center; // 🔹 Assure que le texte est centré
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: black;
+      word-wrap: break-word; // 🔥 Permet le retour à la ligne en cas de titre long
     }
 
     .btn-primary {

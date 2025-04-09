@@ -153,8 +153,12 @@ const ArtisanPage = () => {
         {/* 🔹 Section Formulaire à droite */}
         <div className="artisan-contact">
           <Card className="contact-form">
-            <Card.Body>
-              <Card.Title>Contacter {artisan.name}</Card.Title>
+            <Card.Body className="form-body">
+              {" "}
+              {/* 🔥 Nouvelle classe ici */}
+              <Card.Title className="form-title">
+                Contacter {artisan.name}
+              </Card.Title>
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                   <Form.Label>Nom</Form.Label>
@@ -168,6 +172,15 @@ const ArtisanPage = () => {
                     required
                   />
                 </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Objet</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Sujet de votre message"
+                    required
+                  />
+                </Form.Group>
+
                 <Form.Group className="mb-3">
                   <Form.Label>Message</Form.Label>
                   <Form.Control
