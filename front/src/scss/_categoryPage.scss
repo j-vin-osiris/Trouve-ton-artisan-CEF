@@ -4,23 +4,40 @@
 
   .category-title {
     font-size: 2rem;
-    color: black;
+    font-weight: bold;
+    color: #00497c;
     margin-bottom: 2rem;
   }
 }
+.artisan-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
 
 .artisan-card {
+  flex: 1 1 300px; // Assure une taille uniforme des cartes
+  max-width: 320px; // Limite la largeur des cartes
+  margin: auto; // Centre chaque carte indépendamment
+  padding: 1.5rem 1rem;
   margin-bottom: 1.5rem;
   border: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f1f8fc;
 
   .card-img-top {
     height: 150px;
     object-fit: contain;
+    margin-bottom: 1rem;
+  }
+
+  .card-title {
+    font-weight: bold;
   }
 
   .card-body {
-    background-color: #fff;
+    background-color: #ffff;
     padding: 1rem;
     text-align: center;
   }

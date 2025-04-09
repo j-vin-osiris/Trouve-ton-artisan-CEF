@@ -104,7 +104,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background: white;
+  background: #0074c7;
   border: 1px solid #ccc;
   padding: 10px;
   z-index: 9999 !important; /* 🔥 Assure que le menu est au-dessus de tout */
@@ -116,8 +116,15 @@
   padding: 5px 10px;
 }
 
-.specialty-item:hover {
-  background-color: #f0f0f0;
+.specialty-item a {
+  color: #ffffff !important; // 🔥 Assure que les liens sont bien blancs
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.specialty-item a:hover {
+  color: #f0f0f0; // 🔹 Un blanc légèrement grisé pour l’effet hover
+  background-color: rgba(255, 255, 255, 0.2); // 🔹 Effet léger au survol
 }
 
 /* 📌 Ajustements sur mobile */

@@ -1,18 +1,18 @@
 .featured-artisans {
   padding: 1rem;
-  background-color: #f9f9f9;
-  margin-bottom: 3rem;
+  background-color: #0074c7;
+  margin-bottom: 1.5rem;
 
   .section-title {
     font-size: 2rem;
     font-family: "Graphik", sans-serif;
-    color: black;
-    margin-bottom: 1rem;
+    font-weight: bold;
+    color: white;
   }
 
   .section-subtitle {
     font-size: 1rem;
-    color: #384050;
+    color: white;
     margin-bottom: 2rem;
   }
 
@@ -22,6 +22,9 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    width: 100%;
+    max-width: 280px; // 🔥 Réduit la taille des cartes
+    margin: auto; // 🔹 Centre chaque carte
     border: none;
     border-radius: 8px;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
