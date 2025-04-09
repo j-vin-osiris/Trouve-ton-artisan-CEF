@@ -17,17 +17,25 @@ const ArtisanPage = () => {
   useEffect(() => {
     const fetchArtisan = async () => {
       try {
+        // 🔍 Correction de l’encodage des caractères spéciaux
+        const formattedName = encodeURIComponent(name.replace(/&/g, "and"));
+
+        console.log(`🔍 Requête envoyée pour : ${formattedName}`);
+
         const response = await fetch(
-          `http://localhost:3000/api/artisans/artisan/${encodeURIComponent(
-            name
-          )}`
+          `http://localhost:3000/api/artisans/artisan/${formattedName}`
         );
+
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération de l'artisan.");
         }
+
         const data = await response.json();
+        console.log("✅ Artisan récupéré :", data);
+
         setArtisan(data);
       } catch (err) {
+        console.error("❌ Erreur API :", err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -37,15 +45,15 @@ const ArtisanPage = () => {
     fetchArtisan();
   }, [name]);
 
-  // Optimisation SEO : mise à jour du titre et de la description
+  // 🔹 SEO : Mise à jour du titre et de la description
   useEffect(() => {
     if (artisan) {
-      document.title = `${artisan.name} - Artisan en ${artisan.specialty} à ${artisan.location}`;
+      document.title = `${artisan.name} - Artisan en ${artisan.specialite?.name} à ${artisan.location}`;
       document
         .querySelector('meta[name="description"]')
         .setAttribute(
           "content",
-          `Découvrez ${artisan.name}, expert en ${artisan.specialty} situé à ${artisan.location}. Consultez ses avis et contactez-le directement via notre plateforme !`
+          `Découvrez ${artisan.name}, expert en ${artisan.specialite?.name} situé à ${artisan.location}. Consultez ses avis et contactez-le directement via notre plateforme !`
         );
     }
   }, [artisan]);
@@ -69,17 +77,24 @@ const ArtisanPage = () => {
 
   return (
     <Container className="artisan-page">
+      {artisan && (
+        <h1 className="artisan-title">
+          Votre Artisan {artisan.specialite?.name} :{" "}
+          <span className="artisan-name">{artisan.name}</span>
+        </h1>
+      )}
+
       <div className="artisan-layout">
-        {/* Section Logo */}
+        {/* 🔹 Section Logo */}
         <div className="artisan-logo">
           <img
-            src={artisan.logo || "/assets/favicon-32.png"}
+            src={artisan.logo || "/assets/logo artisans defaut.png"}
             alt={`Logo de ${artisan.name}`}
             className="profile-logo"
           />
         </div>
 
-        {/* Section Infos Artisan + À propos */}
+        {/* 🔹 Section Infos Artisan + À propos */}
         <div className="artisan-info">
           <Card className="artisan-profile">
             <Card.Body>
@@ -98,12 +113,7 @@ const ArtisanPage = () => {
               </div>
               <Card.Text className="artisan-details">
                 <i className="bi bi-tools" style={{ color: "#0074c7" }}></i>{" "}
-                <strong>Spécialité :</strong> {artisan.specialty} <br />
-                <i
-                  className="bi bi-telephone-fill"
-                  style={{ color: "#0074c7" }}
-                ></i>{" "}
-                <strong>Téléphone :</strong> {artisan.phone} <br />
+                <strong>Spécialité :</strong> {artisan.specialite?.name} <br />
                 <i
                   className="bi bi-envelope-fill"
                   style={{ color: "#0074c7" }}
@@ -114,10 +124,10 @@ const ArtisanPage = () => {
                   style={{ color: "#0074c7" }}
                 ></i>{" "}
                 <strong>Localisation :</strong> {artisan.location} <br />
-                {/* Ajout du site internet avec une icône */}
+                {/* 🔹 Ajout du site internet avec une icône */}
                 {artisan.website && (
                   <p>
-                    <i className="bi bi-globe" style={{ color: "#0074c7" }}></i>
+                    <i className="bi bi-globe" style={{ color: "#0074c7" }}></i>{" "}
                     <strong>Site internet :</strong>{" "}
                     <a
                       href={artisan.website}
@@ -140,7 +150,7 @@ const ArtisanPage = () => {
           </Card>
         </div>
 
-        {/* Section Formulaire à droite */}
+        {/* 🔹 Section Formulaire à droite */}
         <div className="artisan-contact">
           <Card className="contact-form">
             <Card.Body>
@@ -171,7 +181,7 @@ const ArtisanPage = () => {
                   Envoyer
                 </Button>
 
-                {/* Message de confirmation */}
+                {/* ✅ Message de confirmation */}
                 {isMessageSent && (
                   <p className="confirmation-message">
                     ✅ Votre message a bien été envoyé ! {artisan.name} vous

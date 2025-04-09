@@ -11,20 +11,23 @@ const FeaturedArtisans = () => {
   const API_URL = "http://localhost:3000/api/artisans/featured";
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchArtisans = async () => {
-      try {
-        const response = await fetch(API_URL);
-        if (!response.ok) {
-          throw new Error("Erreur lors de la récupération des artisans !");
-        }
-        const data = await response.json();
-        setArtisans(data);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
+  const fetchArtisans = async () => {
+    try {
+      const response = await fetch(API_URL);
 
+      if (!response.ok) {
+        throw new Error("Erreur lors de la récupération des artisans !");
+      }
+
+      const data = await response.json();
+      setArtisans(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error("❌ Erreur dans fetchArtisans :", err);
+      setError(err.message);
+    }
+  };
+
+  useEffect(() => {
     fetchArtisans();
   }, []);
 
@@ -58,7 +61,7 @@ const FeaturedArtisans = () => {
                   </Card.Title>
                   <Card.Text>
                     <span className="artisan-specialty">
-                      {artisan.specialty}
+                      {artisan.Specialite?.name || "Spécialité inconnue"}
                     </span>
                     <br />
                     <span className="artisan-location">
@@ -93,5 +96,4 @@ const FeaturedArtisans = () => {
     </section>
   );
 };
-
 export default FeaturedArtisans;

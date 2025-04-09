@@ -52,31 +52,75 @@
 
 .search-results {
   position: absolute;
-  top: 100%; /* Place les résultats juste en dessous de la barre */
+  top: 100%;
   left: 0;
-  width: 100%; /* Assure que la liste prend toute la largeur disponible */
+  width: 100%;
   background-color: #fff;
-  border: 1px solid black;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 10; /* Met la liste au-dessus des autres éléments */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
   list-style: none;
   margin: 0;
-  padding: 0;
-  max-height: 50vh; /* Limite la hauteur sur mobile pour éviter le débordement */
-  overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
+  padding: 10px;
+  max-height: 300px;
+  overflow-y: auto;
 
   .search-result-item {
-    padding: 10px;
+    padding: 12px 15px;
+    font-size: 16px;
+    color: #333;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 
     &:hover {
-      background-color: #f1f8fc;
+      background-color: #0074c7; /* 🔥 Changement de couleur au survol */
+      color: white;
+      transform: scale(1.03); /* 🔥 Effet léger d'agrandissement */
     }
   }
 }
 
+/* 📍 Style du menu déroulant des spécialités */
+.category-item {
+  position: relative;
+  display: inline-block;
+}
+
+/* 📌 Icône de flèche */
+.dropdown-icon {
+  font-size: 14px;
+  margin-left: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* 📌 Animation pour la flèche qui tourne */
+.open .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+.specialty-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 9999 !important; /* 🔥 Assure que le menu est au-dessus de tout */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 📌 Style des spécialités */
+.specialty-item {
+  padding: 5px 10px;
+}
+
+.specialty-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* 📌 Ajustements sur mobile */
 @media (max-width: 1024px) {
   .search-container {
     width: 100%;
@@ -87,10 +131,6 @@
 
   .form-control {
     font-size: 0.9rem;
-  }
-
-  .input-icon {
-    font-size: 1rem;
   }
 
   .nav-link {
@@ -106,17 +146,15 @@
     margin: 5px 0;
   }
 }
+
 @media (max-width: 768px) {
-  .search-results {
-    top: 100%;
-    left: 0;
-    width: 100%;
-    border-radius: 0; /* Supprime les coins arrondis pour un affichage uniforme */
-    box-shadow: none; /* Évite les débordements d'ombres sur mobile */
+  .specialty-dropdown {
+    position: relative; /* Permet un affichage mobile correct */
+    box-shadow: none; /* Supprime les ombres inutiles */
   }
 
   .search-container {
     margin: 0 auto;
-    width: 95%; /* Adapte la barre de recherche à l'écran */
+    width: 95%;
   }
 }

@@ -21,7 +21,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/artisans/:name" element={<ArtisanPage />} />
-          <Route path="/category/:category" element={<CategoryPage />} />
+          <Route path="/specialite/:specialiteId" element={<CategoryPage />} />
+
           <Route path="*" element={<NotFound />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/mentions-legales" element={<MentionsLegales />} />
