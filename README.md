@@ -1,48 +1,79 @@
-🛠 Trouve Ton Artisan
-Plateforme de mise en relation entre particuliers et artisans de la région Auvergne-Rhône-Alpes.
+# 🛠 Trouve Ton Artisan  
 
-📌 Présentation
-Trouve Ton Artisan est une application web facilitant la recherche d’artisans qualifiés. Les utilisateurs peuvent : ✔ Naviguer par catégories d’artisanat ✔ Filtrer par spécialité ✔ Rechercher un artisan par nom ✔ Consulter les profils détaillés (localisation, spécialité, avis clients) ✔ Contacter les artisans via un formulaire intégré
+Plateforme de mise en relation entre **particuliers et artisans** de la région **Auvergne-Rhône-Alpes**.  
 
-🚀 Optimisé pour une expérience utilisateur fluide et efficace.
+---
 
-🔧 Prérequis
-Avant d’installer le projet, assurez-vous d’avoir :
+## 📌 Présentation  
 
-✅ Node.js (>= 16.x) ✅ MySQL (>= 8.x) ✅ npm (>= 8.x)
+Trouve Ton Artisan est une **application web** facilitant la recherche d’artisans qualifiés.  
+Les utilisateurs peuvent :  
 
-💡 Installez MySQL Workbench pour gérer votre base de données.
+- ✔ **Naviguer par catégories d’artisanat**  
+- ✔ **Filtrer par spécialité**  
+- ✔ **Rechercher un artisan par nom**  
+- ✔ **Consulter les profils détaillés** (localisation, spécialité, avis clients)  
+- ✔ **Contacter les artisans via un formulaire intégré**  
 
-⚙ Installation
-1️⃣ Base de données
-Créer la base de données MySQL : artisans_db
+🚀 **Optimisé pour une expérience utilisateur fluide et efficace.**  
 
-Exécuter les scripts SQL pour initialiser la structure :
+---
 
-bash
-mysql -u root -p artisans_db < database/schema.sql
-Insérer les données de base :
+## 🔧 Prérequis  
 
-bash
-mysql -u root -p artisans_db < database/seed.sql
-Restaurer une sauvegarde complète (si nécessaire) :
+Avant d’installer le projet, assurez-vous d’avoir :  
 
-bash
-mysql -u root -p artisans_db < database/artisans_db_backup.sql
-2️⃣ Dépendances utilisées
-🔹 Backend : Node.js, Express, Sequelize, MySQL 🔹 Frontend : React, Bootstrap, Sass 🔹 Sécurité : Helmet, CORS, RateLimiters
+- ✅ **Node.js** (`>= 16.x`)  
+- ✅ **MySQL** (`>= 8.x`)  
+- ✅ **npm** (`>= 8.x`)  
 
-3️⃣ Lancer le serveur backend
+💡 **Installez MySQL Workbench pour gérer votre base de données.**  
+
+---
+
+## ⚙ Installation  
+
+### 1️⃣ Base de données  
+
+1. **Créer la base de données MySQL** : `artisans_db`  
+2. **Exécuter les scripts SQL** pour initialiser la structure :  
+   mysql -u root -p artisans_db < database/schema.sql
+3. **Insérer les données de base** :
+   mysql -u root -p artisans_db < database/seed.sql
+4. **Restaurer une sauvegarde complète (si nécessaire) :**
+   mysql -u root -p artisans_db < database/artisans_db_backup.sql
+
+### 2️⃣ Dépendances utilisées
+
+🔹 Backend : Node.js, Express, Sequelize, MySQL
+
+🔹 Frontend : React, Bootstrap, Sass
+
+🔹 Sécurité : Helmet, CORS, RateLimiters
+
+### 3️⃣ Lancer le serveur backend
 📌 Démarrage de l’API :
-
-bash
 cd api
 node app.js
-4️⃣ Lancer le frontend React
-📌 Démarrage du client web :
 
-bash
+### 4️⃣ Lancer le frontend React
+📌 Démarrage du client web :
 cd front
 npm start
+
 🚀 Fonctionnalités
-✔ Navigation par catégories d’artisanat ✔ Filtrage avancé par spécialité ✔ Recherche rapide d’artisans ✔ Visualisation détaillée des profils ✔ Formulaire de contact intégré ✔ Design responsive (mobile, tablette, desktop) ✔ Optimisation SEO (titres et descriptions dynamiques) ✔ Page 404 personnalisée
+✔ Navigation par catégories d’artisanat
+
+✔ Filtrage avancé par spécialité
+
+✔ Recherche rapide d’artisans
+
+✔ Visualisation détaillée des profils
+
+✔ Formulaire de contact intégré
+
+✔ Design responsive (mobile, tablette, desktop)
+
+✔ Optimisation SEO (titres et descriptions dynamiques)
+
+✔ Page 404 personnalisée
