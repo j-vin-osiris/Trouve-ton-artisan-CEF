@@ -1,56 +1,48 @@
-# Trouve Ton Artisan 🛠
+🛠 Trouve Ton Artisan
+Plateforme de mise en relation entre particuliers et artisans de la région Auvergne-Rhône-Alpes.
 
-Plateforme de mise en relation entre **particuliers et artisans** de la région **Auvergne-Rhône-Alpes**.
+📌 Présentation
+Trouve Ton Artisan est une application web facilitant la recherche d’artisans qualifiés. Les utilisateurs peuvent : ✔ Naviguer par catégories d’artisanat ✔ Filtrer par spécialité ✔ Rechercher un artisan par nom ✔ Consulter les profils détaillés (localisation, spécialité, avis clients) ✔ Contacter les artisans via un formulaire intégré
 
----
+🚀 Optimisé pour une expérience utilisateur fluide et efficace.
 
-## 📌 **Présentation**
+🔧 Prérequis
+Avant d’installer le projet, assurez-vous d’avoir :
 
-Trouve Ton Artisan est une application web permettant aux particuliers de trouver facilement un artisan qualifié et de le contacter via un formulaire intuitif. Les artisans sont répertoriés **par catégories** et leurs profils incluent leurs **spécialités, localisations et avis clients**.
+✅ Node.js (>= 16.x) ✅ MySQL (>= 8.x) ✅ npm (>= 8.x)
 
----
+💡 Installez MySQL Workbench pour gérer votre base de données.
 
-## 🔧 **Prérequis**
+⚙ Installation
+1️⃣ Base de données
+Créer la base de données MySQL : artisans_db
 
-Avant d’installer ce projet, assurez-vous d’avoir les éléments suivants :
+Exécuter les scripts SQL pour initialiser la structure :
 
-- **Node.js** (`>= 16.x`)
-- **MySQL** (`>= 8.x`)
-- **npm** (`>= 8.x`)
+bash
+mysql -u root -p artisans_db < database/schema.sql
+Insérer les données de base :
 
----
+bash
+mysql -u root -p artisans_db < database/seed.sql
+Restaurer une sauvegarde complète (si nécessaire) :
 
+bash
+mysql -u root -p artisans_db < database/artisans_db_backup.sql
+2️⃣ Dépendances utilisées
+🔹 Backend : Node.js, Express, Sequelize, MySQL 🔹 Frontend : React, Bootstrap, Sass 🔹 Sécurité : Helmet, CORS, RateLimiters
 
-## ⚙ **Installation**
+3️⃣ Lancer le serveur backend
+📌 Démarrage de l’API :
 
-### 1️⃣ **Base de données**
+bash
+cd api
+node app.js
+4️⃣ Lancer le frontend React
+📌 Démarrage du client web :
 
-- **MySQL Workbench**
-
-1. **Créer la base de données MYSQL:** `artisan_db`
-2. **Exécutez les scripts SQL:**
-      -schema.sql
-3. **Inserer les données dans la table**
-      -seed.sql
-   
-
-### 2️⃣ **Dépendances Utilisée**
-
-- **Backend : Node.js, Express, Sequelize, MySQL**
-- **Frontend : React, Bootstrap, Sass**
-- **Sécurité : Helmet, CORS, RateLimiters**
-
-### 3️⃣ **Lancer l’API backend**
-
-_bash_
-_cd api_
-_node app.js_
-
-### 4️⃣ **Lancer le frontend React**
-
-_bash_
-_cd front_
-_npm start_
-
+bash
+cd front
+npm start
 🚀 Fonctionnalités
-✔ Navigation par catégories d'artisanat ✔ Filtrage par spécialité ✔ Recherche d'artisans par nom ✔ Visualisation détaillée des profils d'artisans ✔ Formulaire de contact ✔ Design responsive (mobile, tablette, desktop) ✔ Optimisation SEO (titres et descriptions dynamiques) ✔ Page 404 personnalisée
+✔ Navigation par catégories d’artisanat ✔ Filtrage avancé par spécialité ✔ Recherche rapide d’artisans ✔ Visualisation détaillée des profils ✔ Formulaire de contact intégré ✔ Design responsive (mobile, tablette, desktop) ✔ Optimisation SEO (titres et descriptions dynamiques) ✔ Page 404 personnalisée
