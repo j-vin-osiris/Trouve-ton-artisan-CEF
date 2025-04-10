@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const db = require("../config/database");
 
 const Categorie = db.define(
-  "categorie",
+  "Categorie",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -17,7 +17,7 @@ const Categorie = db.define(
   },
   {
     timestamps: false,
-    tableName: "categories",
+    tableName: "categories", //
   }
 );
 

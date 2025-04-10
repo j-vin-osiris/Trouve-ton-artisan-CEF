@@ -1,33 +1,47 @@
+const express = require("express");
+const sequelize = require("./src/config/database");
+const artisanRoutes = require("./src/routes/artisansRoutes");
+const userRoutes = require("./src/routes/userRoutes");
 const cors = require("cors");
 const helmet = require("helmet");
 require("dotenv").config();
-const express = require("express");
-const artisanRoutes = require("./src/routes/artisans");
-const rateLimiter = require("./src/middlewares/rateLimiter");
-const sequelize = require("./src/config/database"); // ✅ Import de la connexion à la base de données
+const {
+  Artisan,
+  Specialite,
+  Categorie,
+  registerRelations,
+} = require("./src/models/relations");
 
 const app = express();
-app.use(cors()); // Active le CORS pour toutes les routes
-app.use(helmet()); // Sécurise les en-têtes HTTP
-app.use(rateLimiter); // Limite les requêtes abusives
-app.use(express.json()); // Middleware pour traiter les JSON
+app.use(cors());
+app.use(helmet());
+app.use(express.json());
 
-// 📌 Vérifier la connexion à la base de données avant de démarrer
+// // 📌 Vérifier la connexion à la base avant de démarrer
 sequelize
   .authenticate()
-  .then(() => console.log("✅ Connexion à la base de données réussie ! 🚀"))
-  .catch((err) => console.error("❌ Erreur de connexion à la base :", err));
+  .then(async () => {
+    console.log("✅ Connexion réussie à la base de données !");
+  })
+  .catch((err) => console.error("❌ Erreur de connexion Sequelize :", err));
 
-// Routes API
 app.use("/api/artisans", artisanRoutes);
+app.use("/api", userRoutes);
+
+app.use((req, res, next) => {
+  console.log(`🔍 Requête reçue : ${req.method} ${req.url}`);
+  next();
+});
 
 // 📍 Gestion des erreurs globales
 app.use((err, req, res, next) => {
   console.error("Erreur serveur :", err);
-  res.status(500).json({ message: "Erreur interne du serveur" });
+  res
+    .status(err.status || 500)
+    .json({ message: err.message || "Erreur interne du serveur" });
 });
 
-// Configuration du port et démarrage du serveur
+// 📌 Démarrer le serveur
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Serveur démarré sur le port ${PORT} 🚀`);
