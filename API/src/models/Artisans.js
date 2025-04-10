@@ -1,9 +1,8 @@
 const { DataTypes } = require("sequelize");
-const db = require("../config/database");
-const Specialite = require("./Specialite"); // 🔗 Relation avec Specialite.js
+const sequelize = require("../config/database"); // ✅ Vérification du chemin
 
-const Artisan = db.define(
-  "artisan",
+const Artisan = sequelize.define(
+  "Artisan",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -14,39 +13,21 @@ const Artisan = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    specialty_id: {
+    specialite_id: {
+      // ✅ Renommé pour correspondre à `specialites`
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: Specialite,
-        key: "id",
-      },
     },
-    location: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    about: {
-      type: DataTypes.TEXT,
-    },
-    email: {
-      type: DataTypes.STRING,
-    },
-    website: {
-      type: DataTypes.STRING,
-    },
-    rating: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-    },
-    top: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
+    location: { type: DataTypes.STRING, allowNull: false },
+    about: { type: DataTypes.TEXT },
+    email: { type: DataTypes.STRING },
+    website: { type: DataTypes.STRING },
+    rating: { type: DataTypes.FLOAT, allowNull: false },
+    top: { type: DataTypes.BOOLEAN, defaultValue: false },
   },
   {
     timestamps: false,
-    tableName: "artisans",
+    tableName: "artisans", // ✅ Vérification du nom de la table
   }
 );
 

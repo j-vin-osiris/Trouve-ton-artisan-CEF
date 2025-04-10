@@ -1,38 +1,39 @@
-const Artisan = require("../models/Artisans"); // Modèle des artisans
-const Specialite = require("../models/Specialite"); // Modèle des spécialités
-const Categorie = require("../models/Categorie"); // Modèle des catégories
+const { Artisan, Specialite, Categorie } = require("../models/relations");
 const { Op } = require("sequelize");
 
-// 📍 Récupérer tous les artisans avec spécialité et catégorie
+// 📍 Récupérer tous les artisans avec leur spécialité et catégorie
 const getAllArtisans = async (req, res) => {
   try {
     const artisans = await Artisan.findAll({
-      include: [{ model: Specialite, include: [Categorie] }],
+      include: [
+        {
+          model: Specialite,
+          include: [{ model: Categorie }],
+        },
+      ],
     });
 
     res.json(artisans);
   } catch (err) {
-    console.error("Erreur lors de la récupération des artisans :", err);
+    console.error("❌ Erreur récupération artisans :", err);
     res.status(500).json({ error: "Erreur serveur" });
   }
 };
 
-// 🔍 Rechercher un artisan par nom (recherche partielle)
+// 🔍 Rechercher un artisan par nom
 const searchArtisanByName = async (req, res) => {
   const { name } = req.query;
   try {
     const artisans = await Artisan.findAll({
       where: {
-        name: {
-          [Op.like]: `%${name}%`,
-        },
+        name: { [Op.like]: `%${name}%` },
       },
       limit: 10,
     });
 
     res.status(200).json(artisans);
   } catch (err) {
-    console.error("Erreur lors de la recherche d'un artisan :", err);
+    console.error("❌ Erreur recherche artisan :", err);
     res.status(500).json({ error: "Erreur serveur" });
   }
 };
@@ -40,27 +41,50 @@ const searchArtisanByName = async (req, res) => {
 // 📍 Récupérer un artisan spécifique par nom
 const getArtisanByName = async (req, res) => {
   const { name } = req.params;
+
   try {
+    // 🔍 Vérification de la spécialité en fonction du nom
     const artisan = await Artisan.findOne({
-      where: {
-        name: {
-          [Op.like]: `%${name}%`,
-        },
-      },
+      where: { name },
+      include: [{ model: Specialite, include: [{ model: Categorie }] }],
     });
 
     if (!artisan) {
-      return res.status(404).json({ message: "Artisan non trouvé." });
+      return res.status(404).json({ message: "Aucun artisan trouvé." });
     }
 
     res.status(200).json(artisan);
   } catch (err) {
-    console.error("Erreur backend :", err);
+    console.error("❌ Erreur récupération artisan :", err);
     res.status(500).json({ error: "Erreur serveur." });
   }
 };
 
-// 📍 Récupérer les artisans d’une catégorie spécifique
+// 📍 Récupérer les artisans d'une spécialité spécifique
+const getArtisansBySpecialty = async (req, res) => {
+  const { name } = req.params;
+  try {
+    // 🔍 Rechercher la spécialité par nom (sans distinction de casse)
+    const specialite = await Specialite.findOne({ where: { name } });
+
+    if (!specialite) {
+      return res.status(404).json({ message: "Spécialité non trouvée." });
+    }
+
+    // 🔥 Récupérer les artisans de cette spécialité
+    const artisans = await Artisan.findAll({
+      where: { specialite_id: specialite.id },
+      include: [{ model: Specialite, include: [{ model: Categorie }] }],
+    });
+
+    res.status(200).json(artisans);
+  } catch (err) {
+    console.error("❌ Erreur récupération artisans spécialité :", err);
+    res.status(500).json({ error: "Erreur serveur." });
+  }
+};
+
+// 📍 Récupérer les artisans d'une catégorie spécifique
 const getArtisansByCategory = async (req, res) => {
   const { categoryId } = req.params;
   try {
@@ -68,12 +92,13 @@ const getArtisansByCategory = async (req, res) => {
       include: [
         {
           model: Specialite,
-          include: [{ model: Categorie, where: { id: categoryId } }],
+          where: { category_id: categoryId },
+          include: [{ model: Categorie }],
         },
       ],
     });
 
-    if (artisans.length === 0) {
+    if (!artisans.length) {
       return res
         .status(404)
         .json({ message: "Aucun artisan trouvé pour cette catégorie." });
@@ -81,42 +106,68 @@ const getArtisansByCategory = async (req, res) => {
 
     res.status(200).json(artisans);
   } catch (err) {
-    console.error("Erreur serveur lors de la récupération des artisans :", err);
+    console.error("❌ Erreur récupération artisans catégorie :", err);
     res.status(500).json({ error: "Erreur serveur." });
+  }
+};
+
+// 📍 Récupérer les spécialités d'une catégorie spécifique
+const getSpecialtiesByCategory = async (req, res) => {
+  const { categoryId } = req.params;
+  try {
+    const specialties = await Specialite.findAll({
+      where: { category_id: categoryId },
+    });
+
+    if (!specialties.length) {
+      return res
+        .status(404)
+        .json({ message: "Aucune spécialité trouvée pour cette catégorie." });
+    }
+
+    res.status(200).json(specialties);
+  } catch (error) {
+    console.error("❌ Erreur récupération spécialités :", error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
 // 📍 Récupérer les artisans mis en avant (top = 1)
 const getFeaturedArtisans = async (req, res) => {
   try {
+    console.log("🔍 Exécution de getFeaturedArtisans...");
+
     const featuredArtisans = await Artisan.findAll({
-      where: { top: true }, // Sélectionne les artisans avec top = 1
-      include: [{ model: Specialite, include: [Categorie] }],
+      where: { top: { [Op.eq]: 1 } },
+      include: [{ model: Specialite, attributes: ["name"] }],
       order: [["rating", "DESC"]],
-      limit: 3, // Sélectionne les 3 artisans les mieux notés
+      limit: 3,
     });
 
     if (!featuredArtisans.length) {
+      console.warn("⚠️ Aucun artisan mis en avant trouvé.");
       return res
         .status(404)
-        .json({ message: "Aucun artisan en avant pour le moment." });
+        .json({ message: "Aucun artisan mis en avant disponible." });
     }
 
+    console.log(
+      "✅ Artisans mis en avant trouvés :",
+      JSON.stringify(featuredArtisans, null, 2)
+    );
     res.status(200).json(featuredArtisans);
   } catch (err) {
-    console.error(
-      "Erreur lors de la récupération des artisans mis en avant :",
-      err
-    );
-    res.status(500).json({ error: "Erreur serveur." });
+    console.error("❌ Erreur récupération artisans mis en avant :", err);
+    res.status(500).json({ error: "Erreur interne du serveur." });
   }
 };
 
-// 🏗 Export des fonctions pour être utilisées dans les routes API
 module.exports = {
   getAllArtisans,
   searchArtisanByName,
   getArtisanByName,
+  getArtisansBySpecialty,
   getArtisansByCategory,
+  getSpecialtiesByCategory,
   getFeaturedArtisans,
 };
