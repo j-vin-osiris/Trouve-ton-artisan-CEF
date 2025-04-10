@@ -3,27 +3,23 @@ import { useParams, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import "../scss/_artisanPage.scss";
+import ArtisanContactForm from "../components/ArtisanContactForm"; // ✅ Import du formulaire
 
 const ArtisanPage = () => {
   const { name } = useParams();
   const [artisan, setArtisan] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isMessageSent, setIsMessageSent] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchArtisan = async () => {
       try {
-        // 🔍 Correction de l’encodage des caractères spéciaux
-        const formattedName = encodeURIComponent(name.replace(/&/g, "and"));
-
-        console.log(`🔍 Requête envoyée pour : ${formattedName}`);
-
         const response = await fetch(
-          `http://localhost:3000/api/artisans/artisan/${formattedName}`
+          `http://localhost:3000/api/artisans/artisan/${encodeURIComponent(
+            name
+          )}`
         );
 
         if (!response.ok) {
@@ -31,7 +27,9 @@ const ArtisanPage = () => {
         }
 
         const data = await response.json();
-        console.log("✅ Artisan récupéré :", data);
+        if (!data || !data.email || !data.id) {
+          throw new Error("Les informations de l'artisan sont incomplètes.");
+        }
 
         setArtisan(data);
       } catch (err) {
@@ -58,11 +56,6 @@ const ArtisanPage = () => {
     }
   }, [artisan]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setIsMessageSent(true);
-  };
-
   if (loading) return <p>Chargement...</p>;
   if (error)
     return (
@@ -77,15 +70,13 @@ const ArtisanPage = () => {
 
   return (
     <Container className="artisan-page">
-      {artisan && (
-        <h1 className="artisan-title">
-          Votre Artisan {artisan.specialite?.name} :{" "}
-          <span className="artisan-name">{artisan.name}</span>
-        </h1>
-      )}
+      <h1 className="artisan-title">
+        Votre Artisan {artisan.specialite?.name} :{" "}
+        <span className="artisan-name">{artisan.name}</span>
+      </h1>
 
       <div className="artisan-layout">
-        {/* 🔹 Section Logo */}
+        {/* 🔹 Logo de l'artisan */}
         <div className="artisan-logo">
           <img
             src={artisan.logo || "/assets/logo artisans defaut.png"}
@@ -94,7 +85,7 @@ const ArtisanPage = () => {
           />
         </div>
 
-        {/* 🔹 Section Infos Artisan + À propos */}
+        {/* 🔹 Informations sur l'artisan */}
         <div className="artisan-info">
           <Card className="artisan-profile">
             <Card.Body>
@@ -112,22 +103,11 @@ const ArtisanPage = () => {
                 <span className="review-count">({artisan.reviews} avis)</span>
               </div>
               <Card.Text className="artisan-details">
-                <i className="bi bi-tools" style={{ color: "#0074c7" }}></i>{" "}
                 <strong>Spécialité :</strong> {artisan.specialite?.name} <br />
-                <i
-                  className="bi bi-envelope-fill"
-                  style={{ color: "#0074c7" }}
-                ></i>{" "}
                 <strong>Email :</strong> {artisan.email} <br />
-                <i
-                  className="bi bi-geo-alt-fill"
-                  style={{ color: "#0074c7" }}
-                ></i>{" "}
                 <strong>Localisation :</strong> {artisan.location} <br />
-                {/* 🔹 Ajout du site internet avec une icône */}
                 {artisan.website && (
                   <p>
-                    <i className="bi bi-globe" style={{ color: "#0074c7" }}></i>{" "}
                     <strong>Site internet :</strong>{" "}
                     <a
                       href={artisan.website}
@@ -150,60 +130,12 @@ const ArtisanPage = () => {
           </Card>
         </div>
 
-        {/* 🔹 Section Formulaire à droite */}
+        {/* 🔹 Formulaire de contact via `ArtisanContactForm` */}
         <div className="artisan-contact">
-          <Card className="contact-form">
-            <Card.Body className="form-body">
-              {" "}
-              {/* 🔥 Nouvelle classe ici */}
-              <Card.Title className="form-title">
-                Contacter {artisan.name}
-              </Card.Title>
-              <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Nom</Form.Label>
-                  <Form.Control type="text" placeholder="Votre nom" required />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Votre adresse mail"
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Objet</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Sujet de votre message"
-                    required
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label>Message</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={5}
-                    placeholder="Votre message..."
-                    required
-                  />
-                </Form.Group>
-                <Button type="submit" variant="primary">
-                  Envoyer
-                </Button>
-
-                {/* ✅ Message de confirmation */}
-                {isMessageSent && (
-                  <p className="confirmation-message">
-                    ✅ Votre message a bien été envoyé ! {artisan.name} vous
-                    répondra sous 24h.
-                  </p>
-                )}
-              </Form>
-            </Card.Body>
-          </Card>
+          <ArtisanContactForm
+            artisanName={artisan.name}
+            artisanEmail={artisan.email}
+          />
         </div>
       </div>
     </Container>
