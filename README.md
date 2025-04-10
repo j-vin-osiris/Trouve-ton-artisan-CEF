@@ -27,7 +27,7 @@ Avant d’installer ce projet, assurez-vous d’avoir les éléments suivants :
 
 - **MySQL Workbench**
 
-1. **Créer la base de données MYSQL** `artisan_db`
+1. **Créer la base de données MYSQL:** `artisan_db`
 2. **Exécutez les scripts SQL:**
       -schema.sql
 3. **Inserer les données dans la table**
