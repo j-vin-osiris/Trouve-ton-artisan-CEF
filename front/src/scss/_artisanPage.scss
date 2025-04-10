@@ -4,135 +4,78 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
+}
 
-  .artisan-title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #00497c;
-    text-align: center;
-    margin-bottom: 30px; // Espace sous le titre
+.artisan-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00497c;
+  text-align: center;
+  margin-bottom: 30px;
+}
 
-    .artisan-name {
-      color: #82b864; // Applique la couleur verte uniquement au nom
-    }
+.artisan-name {
+  color: #82b864; /* Applique la couleur verte uniquement au nom */
+}
+
+.artisan-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr 350px; // Trois colonnes : logo / fiche artisan & à propos / formulaire
+  grid-template-rows: auto auto; // Deux lignes : fiche artisan + à propos
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  align-items: start;
+}
+
+.artisan-logo {
+  grid-column: 1;
+  grid-row: 1 / span 2; // Le logo occupe toute la hauteur
+  display: flex;
+  justify-content: center;
+
+  .profile-logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
+}
 
-  .artisan-layout {
-    display: grid;
-    grid-template-columns: 250px 1fr 350px; // Trois colonnes : logo / fiche artisan & à propos / formulaire
-    grid-template-rows: auto auto; // Deux lignes : fiche artisan + à propos
-    gap: 2rem;
-    width: 100%;
-    max-width: 1200px;
-    align-items: start;
-  }
+.card-body {
+  line-height: 2; // 🔹 Augmente l'espacement entre les lignes pour un meilleur confort de lecture
+  padding: 1.5rem; // 🔥 Renforce l'aération interne
+}
 
-  .artisan-logo {
-    grid-column: 1;
-    grid-row: 1 / span 2; // Le logo occupe toute la hauteur
-    display: flex;
-    justify-content: center;
+.card-title {
+  font-weight: bold;
+}
 
-    .profile-logo {
-      width: 150px;
-      height: 150px;
-      object-fit: contain;
-      border-radius: 50%;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-  }
+.artisan-info {
+  grid-column: 2;
+  grid-row: 1;
+  max-width: 600px;
 
-  .card-body {
-    line-height: 2; // 🔹 Augmente l'espacement entre les lignes pour un meilleur confort de lecture
-    padding: 1.5rem; // 🔥 Renforce l'aération interne
-  }
-
-  .card-title {
-    font-weight: bold;
-  }
-
-  .artisan-info {
-    grid-column: 2;
-    grid-row: 1;
-    max-width: 600px;
-
-    .artisan-profile {
-      margin-bottom: 1rem;
-      border: none;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 1.5rem;
-      background: #f1f8fc;
-      border-radius: 8px;
-    }
-  }
-
-  .artisan-about {
-    grid-column: 2;
-    grid-row: 2;
-    max-width: 600px;
+  .artisan-profile {
+    margin-bottom: 1rem;
     border: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
     background: #f1f8fc;
     border-radius: 8px;
   }
+}
 
-  .artisan-contact {
-    grid-column: 3;
-    grid-row: 1 / span 2; // Formulaire occupe toute la hauteur
-    max-width: 350px;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f1f8fc;
-
-    h3 {
-      font-size: 1.4rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      color: #0074c7;
-    }
-    .form-body .form-group {
-      margin-bottom: 1rem;
-    }
-
-    .form-body input[type="text"] {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .form-body {
-      padding: 1.5rem;
-      background: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      text-align: left; // 🔹 Assure un alignement correct du texte
-      line-height: 1.6; // 🔥 Espacement optimal entre les lignes
-    }
-
-    .form-title {
-      text-align: center; // 🔹 Assure que le texte est centré
-      font-size: 1.6rem;
-      font-weight: bold;
-      color: black;
-      word-wrap: break-word; // 🔥 Permet le retour à la ligne en cas de titre long
-    }
-
-    .btn-primary {
-      background-color: #0074c7;
-      border: none;
-      width: 100%;
-      font-size: 1rem;
-      padding: 0.5rem;
-      transition: background-color 0.3s ease;
-
-      &:hover {
-        background-color: #00497c;
-      }
-    }
-  }
+.artisan-about {
+  grid-column: 2;
+  grid-row: 2;
+  max-width: 600px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  background: #f1f8fc;
+  border-radius: 8px;
 }
 
 @media screen and (max-width: 768px) {
@@ -158,5 +101,40 @@
   .artisan-contact {
     grid-row: 4;
     max-width: 100%;
+  }
+}
+/* ✅ Centrage parfait pour mobile */
+@media (max-width: 768px) {
+  .artisan-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .artisan-logo,
+  .artisan-info,
+  .artisan-about,
+  .artisan-contact {
+    width: 100%;
+    max-width: 400px; /* ✅ Contrôle de la largeur */
+  }
+
+  .logo {
+    margin-bottom: 20px; /* ✅ Espacement sous le logo */
+  }
+
+  .artisan-info-container {
+    margin-bottom: 20px;
+  }
+
+  .about-container {
+    margin-bottom: 20px;
+  }
+
+  .contact-form-container {
+    margin-bottom: 20px;
   }
 }
