@@ -9,67 +9,10 @@
     margin-bottom: 2rem;
   }
 }
+
 .artisan-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5rem;
-}
-
-.artisan-card {
-  flex: 1 1 300px; // Assure une taille uniforme des cartes
-  max-width: 320px; // Limite la largeur des cartes
-  margin: auto; // Centre chaque carte indépendamment
-  padding: 1.5rem 1rem;
-  margin-bottom: 1.5rem;
-  border: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #f1f8fc;
-
-  .card-img-top {
-    height: 150px;
-    object-fit: contain;
-    margin-bottom: 1rem;
-  }
-
-  .card-title {
-    font-weight: bold;
-  }
-
-  .card-body {
-    background-color: #ffff;
-    padding: 1rem;
-    text-align: center;
-  }
-
-  .rating {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0.5rem;
-
-    i {
-      font-size: 1.2rem;
-      margin: 0 2px;
-    }
-
-    .review-count {
-      font-size: 0.9rem;
-      color: #707070;
-      margin-left: 5px;
-    }
-  }
-
-  .btn-primary {
-    background-color: #0074c7;
-    border: none;
-    width: 100%;
-    font-size: 1rem;
-    padding: 0.5rem;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #00497c;
-    }
-  }
 }

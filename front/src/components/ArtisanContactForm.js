@@ -42,8 +42,6 @@ const ArtisanContactForm = ({ artisanName, artisanEmail, sendMail }) => {
         }),
       });
 
-      console.log("🔍 Réponse du backend :", response);
-
       if (!response.ok) {
         throw new Error("Erreur lors de l'envoi du message.");
       }

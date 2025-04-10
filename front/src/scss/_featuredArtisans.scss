@@ -16,62 +16,6 @@
     margin-bottom: 2rem;
   }
 
-  .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    max-width: 280px; // 🔥 Réduit la taille des cartes
-    margin: auto; // 🔹 Centre chaque carte
-    border: none;
-    border-radius: 8px;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.233) !important;
-    }
-
-    .artisan-name {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #00497c;
-      margin-bottom: 0.5rem;
-    }
-
-    .artisan-specialty {
-      font-size: 1rem;
-      color: #0074c7;
-    }
-
-    .artisan-location {
-      font-size: 0.9rem;
-      color: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.2rem;
-
-      i {
-        font-size: 1rem;
-      }
-    }
-
-    .artisan-rating {
-      margin-top: 1rem;
-      display: flex;
-      justify-content: center; /* Centre horizontalement */
-      align-items: center; /* Centre verticalement */
-      gap: 0.2rem; /* Espacement entre les étoiles */
-
-      i {
-        font-size: 1.2rem;
-      }
-    }
-  }
-
   .error-message {
     color: #cd2c2e;
     font-size: 1.2rem;

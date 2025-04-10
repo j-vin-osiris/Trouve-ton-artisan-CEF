@@ -14,6 +14,7 @@ const ArtisanPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // 📌 Fonction pour récupérer les informations de l'artisan
     const fetchArtisan = async () => {
       try {
         const response = await fetch(
@@ -22,18 +23,15 @@ const ArtisanPage = () => {
           )}`
         );
 
-        if (!response.ok) {
+        if (!response.ok)
           throw new Error("Erreur lors de la récupération de l'artisan.");
-        }
-
         const data = await response.json();
-        if (!data || !data.email || !data.id) {
+
+        if (!data?.email || !data?.id)
           throw new Error("Les informations de l'artisan sont incomplètes.");
-        }
 
         setArtisan(data);
       } catch (err) {
-        console.error("❌ Erreur API :", err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -43,8 +41,8 @@ const ArtisanPage = () => {
     fetchArtisan();
   }, [name]);
 
-  // 🔹 SEO : Mise à jour du titre et de la description
   useEffect(() => {
+    // 📌 Mise à jour dynamique du titre et de la description SEO
     if (artisan) {
       document.title = `${artisan.name} - Artisan en ${artisan.specialite?.name} à ${artisan.location}`;
       document
@@ -85,7 +83,7 @@ const ArtisanPage = () => {
           />
         </div>
 
-        {/* 🔹 Informations sur l'artisan */}
+        {/* 🔹 Informations détaillées sur l'artisan */}
         <div className="artisan-info">
           <Card className="artisan-profile">
             <Card.Body>
@@ -122,6 +120,7 @@ const ArtisanPage = () => {
             </Card.Body>
           </Card>
 
+          {/* 🔹 À propos de l'artisan */}
           <Card className="artisan-about">
             <Card.Body>
               <Card.Title>À propos</Card.Title>
@@ -130,7 +129,7 @@ const ArtisanPage = () => {
           </Card>
         </div>
 
-        {/* 🔹 Formulaire de contact via `ArtisanContactForm` */}
+        {/* 🔹 Formulaire de contact */}
         <div className="artisan-contact">
           <ArtisanContactForm
             artisanName={artisan.name}
