@@ -1,5 +1,5 @@
 const express = require("express");
-const { sendMail } = require("../controllers/userController"); // 🔥 Vérifie que l'import est correct
+const { sendMail } = require("../controllers/userController");
 
 const router = express.Router();
 

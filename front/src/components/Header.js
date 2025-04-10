@@ -6,57 +6,53 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-
 import "../scss/_header.scss";
 
+const categories = [
+  {
+    name: "Bâtiment",
+    specialties: ["Électricien", "Menuisier", "Plombier", "Chauffagiste"],
+  },
+  {
+    name: "Services",
+    specialties: ["Coiffeur", "Fleuriste", "Toiletteur", "Webdesign"],
+  },
+  {
+    name: "Fabrication",
+    specialties: ["Bijoutier", "Couturier", "Ferronnier"],
+  },
+  {
+    name: "Alimentation",
+    specialties: ["Boucher", "Boulanger", "Chocolatier", "Traiteur"],
+  },
+];
+
 const HeaderNav = () => {
-  const [searchQuery, setSearchQuery] = useState(""); // 📌 Gestion de la recherche
-  const [results, setResults] = useState([]); // 🔍 Stockage des résultats
-  const [openCategory, setOpenCategory] = useState(null); // 📌 Gestion du menu spécialités
+  const [searchQuery, setSearchQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [openCategory, setOpenCategory] = useState(null);
   const menuRef = useRef(null);
   const searchRef = useRef(null);
   const navigate = useNavigate();
 
-  // 🔥 Liste statique des catégories et spécialités
-  const categories = [
-    {
-      name: "Bâtiment",
-      specialties: ["Électricien", "Menuisier", "Plombier", "Chauffagiste"],
-    },
-    {
-      name: "Services",
-      specialties: ["Coiffeur", "Fleuriste", "Toiletteur", "Webdesign"],
-    },
-    {
-      name: "Fabrication",
-      specialties: ["Bijoutier", "Couturier", "Ferronnier"],
-    },
-    {
-      name: "Alimentation",
-      specialties: ["Boucher", "Boulanger", "Chocolatier", "Traiteur"],
-    },
-  ];
-
-  // 📌 Gère l'affichage du sous-menu des spécialités
+  // 📌 Gestion de l'affichage des spécialités
   const handleCategoryClick = (categoryName) => {
-    setOpenCategory(openCategory === categoryName ? null : categoryName);
+    setOpenCategory((prevCategory) =>
+      prevCategory === categoryName ? null : categoryName
+    );
   };
 
-  // 🔥 Fermer le menu en cas de clic extérieur
+  // 📌 Gestion du clic extérieur pour fermer le menu
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      if (menuRef.current && !menuRef.current.contains(event.target))
         setOpenCategory(null);
-      }
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setResults([]); // 🔥 Ferme les résultats de recherche
-      }
+      if (searchRef.current && !searchRef.current.contains(event.target))
+        setResults([]);
     };
 
     document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
+    return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
   // 📌 Gestion de la recherche d’artisans
@@ -64,39 +60,27 @@ const HeaderNav = () => {
     const query = e.target.value;
     setSearchQuery(query);
 
-    if (query.length > 0) {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/api/artisans/search?name=${query}`
-        );
-        if (!response.ok) {
-          throw new Error("Erreur lors de la recherche.");
-        }
-        const data = await response.json();
-        setResults(Array.isArray(data) ? data : []);
-      } catch (err) {
-        console.error(err.message);
-      }
-    } else {
+    if (!query.length) return setResults([]);
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/artisans/search?name=${query}`
+      );
+      if (!response.ok) throw new Error("Erreur lors de la recherche.");
+      setResults(await response.json());
+    } catch {
       setResults([]);
     }
-  };
-
-  // 📌 Rediriger vers la page d’un artisan
-  const handleResultClick = (artisan) => {
-    setSearchQuery("");
-    setResults([]);
-    navigate(`/artisans/${encodeURIComponent(artisan.name)}`);
   };
 
   return (
     <header>
       <Navbar expand="lg" className="bg-body justify-content-around">
-        <NavbarBrand href="/" className="d-flex align-items-center">
+        <NavbarBrand href="/">
           <img
             src="/assets/Logo.png"
             alt="Logo Trouve ton artisan"
-            className="d-inline-block align-top img-fluid"
+            className="img-fluid"
             style={{ maxHeight: "80px", width: "auto" }}
           />
         </NavbarBrand>
@@ -110,47 +94,42 @@ const HeaderNav = () => {
             <Offcanvas.Title>Menu</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            {/* 📍 Menu des catégories avec spécialités */}
             <Nav
               className="justify-content-center flex-grow-1 pe-3"
               ref={menuRef}
             >
-              {categories.map((category) => (
+              {categories.map(({ name, specialties }) => (
                 <div
-                  key={category.name}
+                  key={name}
                   className={`category-item ${
-                    openCategory === category.name ? "open" : ""
+                    openCategory === name ? "open" : ""
                   }`}
                 >
                   <Nav.Link
-                    onClick={(e) => {
-                      e.stopPropagation(); // 🔥 Empêche la propagation
-                      handleCategoryClick(category.name);
-                    }}
+                    onClick={() => handleCategoryClick(name)}
                     className="category-link"
                   >
-                    {category.name}{" "}
-                    <span className="dropdown-icon">
-                      {openCategory === category.name ? (
+                    {name}
+                    <span
+                      className="dropdown-icon"
+                      onClick={(e) => {
+                        e.stopPropagation(); // 🔥 Empêche la propagation
+                        handleCategoryClick(name);
+                      }}
+                    >
+                      {openCategory === name ? (
                         <FaChevronUp />
                       ) : (
                         <FaChevronDown />
                       )}
                     </span>
                   </Nav.Link>
-
-                  {/* 📌 Affichage des spécialités sous chaque catégorie */}
-                  {openCategory === category.name && (
+                  {openCategory === name && (
                     <ul className="specialty-dropdown">
-                      {category.specialties.map((specialty) => (
+                      {specialties.map((specialty) => (
                         <li key={specialty} className="specialty-item">
                           <Nav.Link
                             onClick={() => {
-                              console.log(
-                                `🛠️ Navigation vers : /specialite/${encodeURIComponent(
-                                  specialty
-                                )}`
-                              );
                               navigate(
                                 `/specialite/${encodeURIComponent(specialty)}`
                               );
@@ -178,14 +157,15 @@ const HeaderNav = () => {
               />
               {results.length > 0 && (
                 <ul className="search-results">
-                  {results.map((artisan) => (
+                  {results.map(({ id, name, specialite }) => (
                     <li
-                      key={artisan.id}
-                      onClick={() => handleResultClick(artisan)}
+                      key={id}
+                      onClick={() =>
+                        navigate(`/artisans/${encodeURIComponent(name)}`)
+                      }
                       className="search-result-item"
                     >
-                      {artisan.name}{" "}
-                      {artisan.specialite ? `- ${artisan.specialite}` : ""}
+                      {name} {specialite ? `- ${specialite}` : ""}
                     </li>
                   ))}
                 </ul>

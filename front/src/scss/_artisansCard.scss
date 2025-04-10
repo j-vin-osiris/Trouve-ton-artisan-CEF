@@ -1,0 +1,85 @@
+.artisan-card {
+  flex: 1 1 300px; // Assure une taille uniforme des cartes
+  max-width: 320px;
+  margin: auto;
+  padding: 1.5rem 1rem;
+  margin-bottom: 1.5rem;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f1f8fc;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.233);
+  }
+
+  .card-img-top {
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+  }
+
+  .card-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #00497c;
+  }
+
+  .card-body {
+    background-color: #ffff;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .artisan-specialty {
+    font-size: 1rem;
+    color: #0074c7;
+  }
+
+  .artisan-location {
+    font-size: 0.9rem;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+
+    i {
+      font-size: 1rem;
+    }
+  }
+
+  .rating {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+
+    i {
+      font-size: 1.2rem;
+      color: #f1c40f;
+    }
+
+    .review-count {
+      font-size: 0.9rem;
+      color: #707070;
+      margin-left: 5px;
+    }
+  }
+
+  .btn-primary {
+    background-color: #0074c7;
+    border: none;
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.5rem;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #00497c;
+    }
+  }
+}
