@@ -9,8 +9,20 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     dialect: "mysql", // Type de base de données
     logging: false, // Désactive les logs SQL
-    port: process.env.DB_PORT, // Port MySQL 3306
+    port: process.env.DB_PORT, // Port MySQL Aiven
+
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false, // ✅ Indispensable pour les connexions sécurisées sur Aiven
+      },
+    },
   }
 );
+
+sequelize
+  .authenticate()
+  .then(() => console.log("✅ Connexion réussie à la base Aiven ! 🚀"))
+  .catch((err) => console.error("❌ Erreur de connexion à Aiven :", err));
 
 module.exports = sequelize;
