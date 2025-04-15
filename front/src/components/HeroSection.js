@@ -13,7 +13,7 @@ const HeroSection = () => {
         />
         <Card.ImgOverlay className="d-flex flex-column justify-content-center align-items-center text-center">
           <Card.Title className="hero-title">
-            Trouvez l'artisan parfait pour votre projet
+            Trouvez l'artisan idéal pour votre projet
           </Card.Title>
           <Card.Text className="hero-text">
             Avec "Trouve Ton Artisan !", explorez les talents locaux
