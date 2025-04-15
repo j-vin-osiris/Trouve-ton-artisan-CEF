@@ -8,6 +8,8 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import "../scss/_header.scss";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const categories = [
   {
     name: "Bâtiment",
@@ -64,7 +66,7 @@ const HeaderNav = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/artisans/search?name=${query}`
+        `${API_URL}/api/artisans/search?name=${query}`
       );
       if (!response.ok) throw new Error("Erreur lors de la recherche.");
       setResults(await response.json());
@@ -160,9 +162,11 @@ const HeaderNav = () => {
                   {results.map(({ id, name, specialite }) => (
                     <li
                       key={id}
-                      onClick={() =>
-                        navigate(`/artisans/${encodeURIComponent(name)}`)
-                      }
+                      onClick={() => {
+                        navigate(`/artisans/${encodeURIComponent(name)}`);
+                        setSearchQuery(""); // 🔥 Vide la barre de recherche
+                        setResults([]); // 🔥 Supprime les résultats affichés
+                      }}
                       className="search-result-item"
                     >
                       {name} {specialite ? `- ${specialite}` : ""}
