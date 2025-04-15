@@ -33,6 +33,7 @@ const getArtisanByName = async (req, res) => {
       where: { name: req.params.name },
       include: [{ model: Specialite, include: [{ model: Categorie }] }],
     });
+    console.log("Artisan envoyé par l'API :", artisan);
 
     artisan
       ? res.status(200).json(artisan)

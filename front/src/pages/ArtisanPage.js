@@ -6,6 +6,8 @@ import Button from "react-bootstrap/Button";
 import "../scss/_artisanPage.scss";
 import ArtisanContactForm from "../components/ArtisanContactForm"; // ✅ Import du formulaire
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const ArtisanPage = () => {
   const { name } = useParams();
   const [artisan, setArtisan] = useState(null);
@@ -18,9 +20,7 @@ const ArtisanPage = () => {
     const fetchArtisan = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/artisans/artisan/${encodeURIComponent(
-            name
-          )}`
+          `${API_URL}/api/artisans/artisan/${encodeURIComponent(name)}`
         );
 
         if (!response.ok)
@@ -101,11 +101,12 @@ const ArtisanPage = () => {
                 <span className="review-count">({artisan.reviews} avis)</span>
               </div>
               <Card.Text className="artisan-details">
-                <strong>Spécialité :</strong> {artisan.specialite?.name} <br />
+                <strong>Spécialité :</strong>{" "}
+                {artisan.Specialite?.name || "Non renseigné"} <br />
                 <strong>Email :</strong> {artisan.email} <br />
                 <strong>Localisation :</strong> {artisan.location} <br />
                 {artisan.website && (
-                  <p>
+                  <>
                     <strong>Site internet :</strong>{" "}
                     <a
                       href={artisan.website}
@@ -114,7 +115,7 @@ const ArtisanPage = () => {
                     >
                       {artisan.website}
                     </a>
-                  </p>
+                  </>
                 )}
               </Card.Text>
             </Card.Body>

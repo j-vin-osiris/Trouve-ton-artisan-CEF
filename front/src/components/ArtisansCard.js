@@ -28,6 +28,8 @@ const ArtisanCard = ({ artisan }) => {
           <span className="review-count">({artisan.reviews ?? "0"} avis)</span>
         </div>
         <Card.Text>
+          <strong>Spécialité :</strong>{" "}
+          {artisan.Specialite?.name || "Non renseigné"} <br />
           <strong>Localisation :</strong> {artisan.location || "Non renseigné"}
         </Card.Text>
         <Button

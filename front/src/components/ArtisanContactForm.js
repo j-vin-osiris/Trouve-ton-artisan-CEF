@@ -3,6 +3,10 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "../scss/_artisanContactForm.scss"; // ✅ Import du fichier SCSS dédié
 
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "https://trouve-ton-artisan-cef.onrender.com";
+
 const ArtisanContactForm = ({ artisanName, artisanEmail, sendMail }) => {
   const [formData, setFormData] = useState({
     name: "",
@@ -30,7 +34,7 @@ const ArtisanContactForm = ({ artisanName, artisanEmail, sendMail }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/send-mail", {
+      const response = await fetch(`${API_URL}/api/send-mail`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

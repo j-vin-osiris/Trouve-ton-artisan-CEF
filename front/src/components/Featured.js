@@ -5,6 +5,8 @@ import Col from "react-bootstrap/Col";
 import ArtisanCard from "../components/ArtisansCard"; // ✅ Import du composant
 import "../scss/_featuredArtisans.scss";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const FeaturedArtisans = () => {
   const [artisans, setArtisans] = useState([]);
   const [error, setError] = useState(null);
@@ -12,9 +14,7 @@ const FeaturedArtisans = () => {
   useEffect(() => {
     const fetchArtisans = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/artisans/featured"
-        );
+        const response = await fetch(`${API_URL}/api/artisans/featured`);
         if (!response.ok)
           throw new Error("Erreur lors de la récupération des artisans !");
         setArtisans(await response.json());
