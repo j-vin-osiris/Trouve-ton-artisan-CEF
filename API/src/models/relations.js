@@ -2,7 +2,6 @@ const Artisan = require("./Artisans");
 const Specialite = require("./Specialite");
 const Categorie = require("./Categorie");
 
-// 📌 Définition des relations ici pour éviter les dépendances circulaires
 Categorie.hasMany(Specialite, { foreignKey: "category_id" });
 Specialite.belongsTo(Categorie, { foreignKey: "category_id" });
 

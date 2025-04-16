@@ -1,7 +1,7 @@
 @import "~bootstrap/scss/bootstrap"; // Styles Bootstrap globaux
 
 // Import des fichiers personnalisés
-@import "./font"; //font
+@import "./font";
 @import "./global";
 @import "./header";
 @import "./footer";
@@ -12,3 +12,5 @@
 @import "./categoryPage";
 @import "./artisanContactForm";
 @import "./artisansCard";
+@import "./genericPage";
+@import "./notFound";

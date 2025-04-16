@@ -1,11 +1,9 @@
-// Réinitialisation globale
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-// Corps de la page
 body {
   font-family: $font-family-base !important;
   font-size: 16px; // Taille par défaut
@@ -18,16 +16,15 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $font-family-base; // Uniformité pour les titres
-  font-weight: 700; // Gras pour les titres
-  margin-bottom: 1rem; // Espacement inférieur
+  font-family: $font-family-base;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
-// Classe pour les titres personnalisés
 .title-custom {
   font-family: $font-family-base;
   font-size: 2rem;
   font-weight: 700;
-  text-transform: uppercase; // Texte en majuscules
+  text-transform: uppercase;
   margin-bottom: 1rem;
 }

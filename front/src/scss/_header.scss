@@ -10,23 +10,23 @@
 .nav-link {
   position: relative;
   display: inline-block;
-  color: black !important; // Couleur normale du lien
+  color: black !important;
   text-decoration: none;
 
   &::after {
-    content: ""; // Crée un pseudo-élément pour l'effet
+    content: "";
     position: absolute;
-    bottom: 1px; // Place l'effet sous le texte
-    left: 50%; // Commence au milieu
-    width: 0; // L'animation commence avec une largeur de 0
-    height: 2px; // Épaisseur de la ligne
-    background-color: black; // Couleur de la ligne
-    transition: all 0.4s ease; // Animation fluide
-    transform: translateX(-50%); // Centre l'effet au milieu
+    bottom: 1px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: black;
+    transition: all 0.4s ease;
+    transform: translateX(-50%);
   }
 
   &:hover::after {
-    width: 100%; // Étend la ligne sur toute la largeur du texte
+    width: 100%;
   }
 
   &.active {
@@ -42,11 +42,11 @@
 }
 
 .form-control {
-  flex: 1; // Adapte la largeur de l'input au conteneur
+  flex: 1;
 
   &::placeholder {
-    color: #aaa; // Placeholder en gris clair
-    font-style: italic; // Optionnel, pour différencier le placeholder
+    color: #aaa;
+    font-style: italic;
   }
 }
 
@@ -74,20 +74,18 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
 
     &:hover {
-      background-color: #0074c7; /* 🔥 Changement de couleur au survol */
+      background-color: #0074c7;
       color: white;
-      transform: scale(1.03); /* 🔥 Effet léger d'agrandissement */
+      transform: scale(1.03);
     }
   }
 }
 
-/* 📍 Style du menu déroulant des spécialités */
 .category-item {
   position: relative;
   display: inline-block;
 }
 
-/* 📌 Icône de flèche */
 .dropdown-icon {
   font-size: 14px;
   margin-left: 5px;
@@ -95,7 +93,6 @@
   transition: transform 0.3s ease;
 }
 
-/* 📌 Animation pour la flèche qui tourne */
 .open .dropdown-icon {
   transform: rotate(180deg);
 }
@@ -108,27 +105,26 @@
   background: #0074c7;
   border: 1px solid #ccc;
   padding: 10px;
-  z-index: 9999 !important; /* 🔥 Assure que le menu est au-dessus de tout */
+  z-index: 9999 !important;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* 📌 Style des spécialités */
 .specialty-item {
   padding: 5px 10px;
 }
 
 .specialty-item a {
-  color: #ffffff !important; // 🔥 Assure que les liens sont bien blancs
+  color: #ffffff !important;
   text-decoration: none;
   font-weight: bold;
 }
 
 .specialty-item a:hover {
-  color: #f0f0f0; // 🔹 Un blanc légèrement grisé pour l’effet hover
-  background-color: rgba(255, 255, 255, 0.2); // 🔹 Effet léger au survol
+  color: #f0f0f0;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* 📌 Ajustements sur mobile */
+//Ajustements sur mobile //
 @media (max-width: 1024px) {
   .search-container {
     width: 100%;
@@ -157,8 +153,8 @@
 
 @media (max-width: 768px) {
   .specialty-dropdown {
-    position: relative; /* Permet un affichage mobile correct */
-    box-shadow: none; /* Supprime les ombres inutiles */
+    position: relative;
+    box-shadow: none;
   }
 
   .search-container {

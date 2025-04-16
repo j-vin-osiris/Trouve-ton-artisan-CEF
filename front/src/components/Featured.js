@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import ArtisanCard from "../components/ArtisansCard"; // ✅ Import du composant
+import ArtisanCard from "../components/ArtisansCard";
 import "../scss/_featuredArtisans.scss";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -36,8 +36,7 @@ const FeaturedArtisans = () => {
       <Row className="g-4">
         {artisans.map((artisan) => (
           <Col key={artisan.id} sm={12} md={6} lg={4}>
-            <ArtisanCard artisan={artisan} />{" "}
-            {/* 🔥 Utilisation du composant */}
+            <ArtisanCard artisan={artisan} />
           </Col>
         ))}
       </Row>

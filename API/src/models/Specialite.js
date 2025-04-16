@@ -11,7 +11,7 @@ const Specialite = db.define(
   {
     timestamps: false,
     tableName: "specialites",
-    underscored: true, // ✅ Gère automatiquement les noms de colonnes en snake_case
+    underscored: true, //
   }
 );
 

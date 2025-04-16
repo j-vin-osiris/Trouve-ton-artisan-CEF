@@ -7,7 +7,7 @@ const HeroSection = () => {
     <section className="hero-section">
       <Card className="text-white">
         <Card.Img
-          src="/assets/herosection.png" // Chemin vers l'image
+          src="/assets/herosection.png"
           alt="Artisan au travail"
           className="hero-image"
         />
