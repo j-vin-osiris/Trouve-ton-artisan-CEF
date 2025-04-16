@@ -79,3 +79,10 @@ npm start
 ✔ Optimisation SEO (titres et descriptions dynamiques)
 
 ✔ Page 404 personnalisée
+
+## Maquettes Figma
+
+Les maquettes du projet sont disponibles ici https://www.figma.com/design/HvLSgNAQC1E52odgxqeF3s/TROUVE-TON-ARTISAN?node-id=16-1330&p=f&t=SQNPFfbwtkL3CUoi-0
+
+Ainsi qu'au format pdf dans le dossier :
+front/public/assets/docs
