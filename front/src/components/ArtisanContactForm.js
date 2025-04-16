@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import "../scss/_artisanContactForm.scss"; // ✅ Import du fichier SCSS dédié
+import "../scss/_artisanContactForm.scss";
 
 const API_URL =
   process.env.REACT_APP_API_URL ||

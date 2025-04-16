@@ -1,41 +1,41 @@
-# 🛠 Trouve Ton Artisan  
+# 🛠 Trouve Ton Artisan
 
-Plateforme de mise en relation entre **particuliers et artisans** de la région **Auvergne-Rhône-Alpes**.  
+Plateforme de mise en relation entre **particuliers et artisans** de la région **Auvergne-Rhône-Alpes**.
 
 ---
 
-## 📌 Présentation  
+## 📌 Présentation
 
 Trouve Ton Artisan est une **application web** facilitant la recherche d’artisans qualifiés.  
-Les utilisateurs peuvent :  
+Les utilisateurs peuvent :
 
-- ✔ **Naviguer par catégories d’artisanat**  
-- ✔ **Filtrer par spécialité**  
-- ✔ **Rechercher un artisan par nom**  
-- ✔ **Consulter les profils détaillés** (localisation, spécialité, avis clients)  
-- ✔ **Contacter les artisans via un formulaire intégré**  
+- ✔ **Naviguer par catégories d’artisanat**
+- ✔ **Filtrer par spécialité**
+- ✔ **Rechercher un artisan par nom**
+- ✔ **Consulter les profils détaillés** (localisation, spécialité, avis clients)
+- ✔ **Contacter les artisans via un formulaire intégré**
 
-🚀 **Optimisé pour une expérience utilisateur fluide et efficace.**  
-
----
-
-## 🔧 Prérequis  
-
-Avant d’installer le projet, assurez-vous d’avoir :  
-
-- ✅ **Node.js** (`>= 16.x`)  
-- ✅ **MySQL** (`>= 8.x`)  
-- ✅ **npm** (`>= 8.x`)  
-
-💡 **Installez MySQL Workbench pour gérer votre base de données.**  
+🚀 **Optimisé pour une expérience utilisateur fluide et efficace.**
 
 ---
 
-## ⚙ Installation  
+## 🔧 Prérequis
 
-### 1️⃣ Base de données  
+Avant d’installer le projet, assurez-vous d’avoir :
 
-1. **Créer la base de données MySQL** : `artisans_db`  
+- ✅ **Node.js** (`>= 16.x`)
+- ✅ **MySQL** (`>= 8.x`)
+- ✅ **npm** (`>= 8.x`)
+
+💡 **Installez MySQL Workbench pour gérer votre base de données.**
+
+---
+
+## ⚙ Installation
+
+### 1️⃣ Base de données
+
+1. **Créer la base de données MySQL** : `artisans_db`
 2. **Exécuter les scripts SQL** pour initialiser la structure :  
    mysql -u root -p artisans_db < database/schema.sql
 3. **Insérer les données de base** :
@@ -49,14 +49,16 @@ Avant d’installer le projet, assurez-vous d’avoir :
 
 🔹 Frontend : React, Bootstrap, Sass
 
-🔹 Sécurité : Helmet, CORS, RateLimiters
+🔹 Sécurité : Helmet, CORS
 
 ### 3️⃣ Lancer le serveur backend
+
 📌 Démarrage de l’API :
 cd api
 node app.js
 
 ### 4️⃣ Lancer le frontend React
+
 📌 Démarrage du client web :
 cd front
 npm start

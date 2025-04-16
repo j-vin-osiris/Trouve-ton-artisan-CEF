@@ -1,13 +1,13 @@
 .hero-section {
   .hero-image {
     width: 100%;
-    height: 30vh; /* Hauteur réduite pour un design compact */
-    object-fit: cover; /* Ajuste l'image sans la déformer */
+    height: 30vh;
+    object-fit: cover;
     filter: contrast(0.8) brightness(0.9);
   }
 
   .hero-title {
-    font-size: 1.8rem; /* Taille ajustée pour la hauteur réduite */
+    font-size: 1.8rem;
     font-family: "Graphik", sans-serif;
     margin-bottom: 0.5rem;
   }
@@ -18,7 +18,6 @@
   }
 }
 
-/* Ajustements pour écran moyen (tablette) */
 @media screen and (max-width: 768px) {
   .hero-title {
     font-size: 4vw;
@@ -33,7 +32,7 @@
   }
 }
 
-/* 📌 Optimisation pour mobile */
+//Optimisation pour mobile //
 @media screen and (max-width: 768px) {
   .hero-section {
     padding: 1.5rem;

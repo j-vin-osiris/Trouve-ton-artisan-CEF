@@ -15,13 +15,13 @@
 }
 
 .artisan-name {
-  color: #82b864; /* Applique la couleur verte uniquement au nom */
+  color: #82b864;
 }
 
 .artisan-layout {
   display: grid;
-  grid-template-columns: 250px 1fr 350px; // Trois colonnes : logo / fiche artisan & à propos / formulaire
-  grid-template-rows: auto auto; // Deux lignes : fiche artisan + à propos
+  grid-template-columns: 250px 1fr 350px;
+  grid-template-rows: auto auto;
   gap: 2rem;
   width: 100%;
   max-width: 1200px;
@@ -30,7 +30,7 @@
 
 .artisan-logo {
   grid-column: 1;
-  grid-row: 1 / span 2; // Le logo occupe toute la hauteur
+  grid-row: 1 / span 2;
   display: flex;
   justify-content: center;
 
@@ -44,8 +44,8 @@
 }
 
 .card-body {
-  line-height: 2; // 🔹 Augmente l'espacement entre les lignes pour un meilleur confort de lecture
-  padding: 1.5rem; // 🔥 Renforce l'aération interne
+  line-height: 2;
+  padding: 1.5rem;
 }
 
 .card-title {
@@ -103,7 +103,7 @@
     max-width: 100%;
   }
 }
-/* ✅ Centrage parfait pour mobile */
+/* Centrage pour mobile */
 @media (max-width: 768px) {
   .artisan-layout {
     display: flex;
@@ -119,11 +119,11 @@
   .artisan-about,
   .artisan-contact {
     width: 100%;
-    max-width: 400px; /* ✅ Contrôle de la largeur */
+    max-width: 400px;
   }
 
   .logo {
-    margin-bottom: 20px; /* ✅ Espacement sous le logo */
+    margin-bottom: 20px;
   }
 
   .artisan-info-container {

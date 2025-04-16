@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import "../scss/_artisanPage.scss";
-import ArtisanContactForm from "../components/ArtisanContactForm"; // ✅ Import du formulaire
+import ArtisanContactForm from "../components/ArtisanContactForm";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -16,7 +16,7 @@ const ArtisanPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 📌 Fonction pour récupérer les informations de l'artisan
+    //Fonction pour récupérer les informations de l'artisan
     const fetchArtisan = async () => {
       try {
         const response = await fetch(
@@ -42,7 +42,7 @@ const ArtisanPage = () => {
   }, [name]);
 
   useEffect(() => {
-    // 📌 Mise à jour dynamique du titre et de la description SEO
+    //Mise à jour dynamique du titre et de la description SEO
     if (artisan) {
       document.title = `${artisan.name} - Artisan en ${artisan.specialite?.name} à ${artisan.location}`;
       document
@@ -74,7 +74,6 @@ const ArtisanPage = () => {
       </h1>
 
       <div className="artisan-layout">
-        {/* 🔹 Logo de l'artisan */}
         <div className="artisan-logo">
           <img
             src={artisan.logo || "/assets/logo artisans defaut.png"}
@@ -83,7 +82,6 @@ const ArtisanPage = () => {
           />
         </div>
 
-        {/* 🔹 Informations détaillées sur l'artisan */}
         <div className="artisan-info">
           <Card className="artisan-profile">
             <Card.Body>
@@ -121,7 +119,6 @@ const ArtisanPage = () => {
             </Card.Body>
           </Card>
 
-          {/* 🔹 À propos de l'artisan */}
           <Card className="artisan-about">
             <Card.Body>
               <Card.Title>À propos</Card.Title>
@@ -130,7 +127,6 @@ const ArtisanPage = () => {
           </Card>
         </div>
 
-        {/* 🔹 Formulaire de contact */}
         <div className="artisan-contact">
           <ArtisanContactForm
             artisanName={artisan.name}

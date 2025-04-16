@@ -17,7 +17,7 @@ const Artisan = sequelize.define(
   {
     timestamps: false,
     tableName: "artisans",
-    underscored: true, // ✅ Convertit `specialiteId` en `specialite_id` automatiquement
+    underscored: true, //
   }
 );
 

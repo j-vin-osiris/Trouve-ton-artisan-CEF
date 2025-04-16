@@ -1,6 +1,6 @@
 const SibApiV3Sdk = require("sib-api-v3-sdk");
 
-// 📌 Initialisation de l’API Brevo avec la clé d'environnement
+// Initialisation de l’API Brevo avec la clé d'environnement
 SibApiV3Sdk.ApiClient.instance.authentications["api-key"].apiKey =
   process.env.BREVO_API_KEY;
 

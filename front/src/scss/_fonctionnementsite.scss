@@ -16,14 +16,14 @@
     transition: transform 0.3s ease-in-out;
 
     &:hover {
-      transform: translateY(-5px); /* Effet d'élévation au survol */
+      transform: translateY(-5px);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important;
     }
 
     .number-container {
       width: 30px;
       height: 30px;
-      margin: 0 auto 1rem; /* Centre le numéro au-dessus de l'icône */
+      margin: 0 auto 1rem;
       border-radius: 50%;
       background-color: #0074c7;
       display: flex;

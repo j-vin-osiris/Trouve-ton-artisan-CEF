@@ -1,7 +1,7 @@
 const { Artisan, Specialite, Categorie } = require("../models/relations");
 const { Op } = require("sequelize");
 
-// 📍 Récupérer tous les artisans avec leur spécialité et catégorie
+// Récupérer tous les artisans avec leur spécialité et catégorie
 const getAllArtisans = async (req, res) => {
   try {
     const artisans = await Artisan.findAll({
@@ -13,7 +13,7 @@ const getAllArtisans = async (req, res) => {
   }
 };
 
-// 🔍 Rechercher un artisan par nom
+// Rechercher un artisan par nom
 const searchArtisanByName = async (req, res) => {
   try {
     const artisans = await Artisan.findAll({
@@ -26,7 +26,7 @@ const searchArtisanByName = async (req, res) => {
   }
 };
 
-// 📍 Récupérer un artisan spécifique par nom
+// Récupérer un artisan spécifique par nom
 const getArtisanByName = async (req, res) => {
   try {
     const artisan = await Artisan.findOne({
@@ -43,7 +43,7 @@ const getArtisanByName = async (req, res) => {
   }
 };
 
-// 📍 Récupérer les artisans d'une spécialité spécifique
+// Récupérer les artisans d'une spécialité spécifique
 const getArtisansBySpecialty = async (req, res) => {
   try {
     const specialite = await Specialite.findOne({
@@ -63,7 +63,7 @@ const getArtisansBySpecialty = async (req, res) => {
   }
 };
 
-// 📍 Récupérer les artisans d'une catégorie spécifique
+// Récupérer les artisans d'une catégorie spécifique
 const getArtisansByCategory = async (req, res) => {
   try {
     const artisans = await Artisan.findAll({
@@ -84,7 +84,7 @@ const getArtisansByCategory = async (req, res) => {
   }
 };
 
-// 📍 Récupérer les spécialités d'une catégorie spécifique
+// Récupérer les spécialités d'une catégorie spécifique
 const getSpecialtiesByCategory = async (req, res) => {
   try {
     const specialties = await Specialite.findAll({
@@ -99,7 +99,7 @@ const getSpecialtiesByCategory = async (req, res) => {
   }
 };
 
-// 📍 Récupérer les artisans mis en avant
+// Récupérer les artisans mis en avant
 const getFeaturedArtisans = async (req, res) => {
   try {
     const featuredArtisans = await Artisan.findAll({

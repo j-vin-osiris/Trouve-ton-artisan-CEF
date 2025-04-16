@@ -37,14 +37,14 @@ const HeaderNav = () => {
   const searchRef = useRef(null);
   const navigate = useNavigate();
 
-  // 📌 Gestion de l'affichage des spécialités
+  //Gestion de l'affichage des spécialités
   const handleCategoryClick = (categoryName) => {
     setOpenCategory((prevCategory) =>
       prevCategory === categoryName ? null : categoryName
     );
   };
 
-  // 📌 Gestion du clic extérieur pour fermer le menu
+  //Gestion du clic extérieur pour fermer le menu
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target))
@@ -57,7 +57,7 @@ const HeaderNav = () => {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  // 📌 Gestion de la recherche d’artisans
+  //Gestion de la recherche d’artisans
   const handleSearch = async (e) => {
     const query = e.target.value;
     setSearchQuery(query);
@@ -115,7 +115,7 @@ const HeaderNav = () => {
                     <span
                       className="dropdown-icon"
                       onClick={(e) => {
-                        e.stopPropagation(); // 🔥 Empêche la propagation
+                        e.stopPropagation();
                         handleCategoryClick(name);
                       }}
                     >
@@ -135,7 +135,7 @@ const HeaderNav = () => {
                               navigate(
                                 `/specialite/${encodeURIComponent(specialty)}`
                               );
-                              setOpenCategory(null); // 🔥 Ferme le menu après sélection
+                              setOpenCategory(null);
                             }}
                           >
                             {specialty}
@@ -148,7 +148,6 @@ const HeaderNav = () => {
               ))}
             </Nav>
 
-            {/* 📍 Barre de recherche */}
             <Form className="d-flex search-bar" ref={searchRef}>
               <Form.Control
                 type="search"
@@ -164,8 +163,8 @@ const HeaderNav = () => {
                       key={id}
                       onClick={() => {
                         navigate(`/artisans/${encodeURIComponent(name)}`);
-                        setSearchQuery(""); // 🔥 Vide la barre de recherche
-                        setResults([]); // 🔥 Supprime les résultats affichés
+                        setSearchQuery(""); //Vide la barre de recherche
+                        setResults([]); //Supprime les résultats affichés
                       }}
                       className="search-result-item"
                     >

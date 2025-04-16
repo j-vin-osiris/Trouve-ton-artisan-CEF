@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../scss/_fonctionnementsite.scss";
 
-// 📌 Définition des étapes du processus
+//Définition des étapes du processus
 const steps = [
   {
     number: 1,

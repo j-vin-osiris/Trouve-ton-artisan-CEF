@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import ArtisanCard from "../components/ArtisansCard"; // ✅ Import du composant
+import ArtisanCard from "../components/ArtisansCard";
 import "../scss/_categoryPage.scss";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -41,7 +41,6 @@ const CategoryPage = () => {
         {artisans.map((artisan) => (
           <Col key={artisan.id} xs={12} sm={6} md={4} lg={3}>
             <ArtisanCard artisan={artisan} />{" "}
-            {/* 🔥 Utilisation du composant */}
           </Col>
         ))}
       </Row>

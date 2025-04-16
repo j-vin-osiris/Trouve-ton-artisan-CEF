@@ -10,7 +10,7 @@ const Categorie = db.define(
   {
     timestamps: false,
     tableName: "categories",
-    underscored: true, // ✅ Assure une convention cohérente des noms de colonnes
+    underscored: true, //
   }
 );
 
